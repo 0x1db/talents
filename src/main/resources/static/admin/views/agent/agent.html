@@ -1,0 +1,128 @@
+<nav class="breadcrumb"><i class="fa fa-home"></i> 首页 <span class="c-gray en">&gt;</span>用户管理<span
+    class="c-gray en">&gt;</span>后台用户管理
+</nav>
+<div class="contentContainer viewAni ng-scope" style="">
+  <style class="ng-scope">
+    .del_class_0 {
+      color: green !important;
+    }
+
+    .del_class_1 {
+      color: red !important;
+    }
+  </style>
+  <div class="content_box ng-scope" perfect-scrollbar=""
+       wheel-propagation="false" wheel-speed="10" min-scrollbar-length="20"
+       ng-scrollbars="">
+
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-th-list"></i> 用户管理</h3>
+      </div>
+      <div class="panel-body">
+        <div class="content_header form-inline">
+          <form class="ng-pristine ng-valid ng-valid-date">
+            <div class="form-group">
+              <label>用户名称:</label> <input type="text"
+                                          class="form-control ng-pristine ng-untouched ng-valid ng-empty"
+                                          ng-model="getAgentsParams.name" placeholder="用户名称">
+            </div>
+            <div class="form-group" style="overflow: inherit;">
+              <label>账号:</label> <input type="text"
+                                        class="form-control ng-pristine ng-untouched ng-valid ng-empty"
+                                        ng-model="getAgentsParams.account" placeholder="用户账号">
+            </div>
+            <div class="form-group" style="overflow: inherit;">
+              <label class="lbl_search">状态:</label> <select
+                ng-model="getAgentsParams.status"
+                class="form-control ng-pristine ng-untouched ng-valid ng-not-empty">
+              <option value="">全部</option>
+              <option value=1>正常</option>
+              <option value=0>禁用</option>
+            </select>
+            </div>
+            <div class="clear_float"></div>
+            <div class="agent_btn">
+              <button type="submit" class="btn btn-primary"
+                      ng-click="getAgents()">
+                <i class="fa fa-search"></i>搜索
+              </button>
+              <button class="btn btn-default" ng-click="resetParams()"><i class="fa fa-wrench"></i>重置
+              </button>
+              <button type="button" class="btn btn-success fr"
+                      ui-sref="me.addAgent">新增用户
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="content_body">
+          <div class="table-responsive">
+            <table
+                class="table table-bordered table-hover table-s table-overflow-x text-c">
+              <thead>
+              <tr class="text-c">
+                <th>账号</th>
+                <th>用户名称</th>
+                <th>注册时间</th>
+                <!--<th>创建人</th>-->
+                <th>修改时间</th>
+                <!--<th>修改人</th>-->
+                <th>登录时间</th>
+                <th>状态</th>
+                <th>操作</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr class="ng-scope" ng-repeat="x in agents">
+                <td class="ng-binding">{{x.account}}</td>
+                <td class="ng-binding">{{x.name}}</td>
+                <td class="ng-binding">{{x.createDate | date:"yyyy-MM-dd HH:mm:ss"}}</td>
+                <!--<td class="ng-binding">{{x.creator.name}}</td>-->
+                <td class="ng-binding">{{x.modifyDate | date:"yyyy-MM-dd HH:mm:ss"}}</td>
+                <!--<td class="ng-binding">{{x.modifier.name}}</td>-->
+                <td class="ng-binding">{{x.lastLoginTime | date:"yyyy-MM-dd HH:mm:ss"}}</td>
+                <td class="ng-binding">
+                  <span ng-if="x.status == 1">正常</span>
+                  <span ng-if="x.status == 0" class="require_span">禁用</span>
+                </td>
+                <td class="f-14">
+                  <a ng-if="x.status == 1" class="op_item"
+                     style="cursor: pointer;"
+                     ng-click="notAgent(x.id, false, $index)"
+                     has-permission="/v1/agents/disableOrUnDisable&POST">禁用</a>
+                  <a ng-if="x.status == 0"
+                     class="!hasDisable"
+                     class="op_item" style="cursor: pointer;"
+                     ng-click="notAgent(x.id, true, $index)"
+                     has-permission="/v1/agents/disableOrUnDisable&POST">启用</a>
+                  <a ng-if="x.status == 1" class="op_item" ng-click="resetPassword(x.id)"
+                     has-permission="/v1/agents/reset/&PATCH"
+                     style="cursor: pointer;">重置密码</a>
+                  <a ng-if="x.status == 1" class="op_item" ui-sref="me.agentRole({agentId: x.id})"
+                     has-permission="/v1/agents/bindRoleForUser/&POST"
+                     style="cursor: pointer;">设置角色</a>
+                  <a ng-if="x.status == 1" class="op_item" ui-sref="me.editAgent({agentId: x.id})"
+                     has-permission="/v1/agents/&POST"
+                     style="cursor: pointer;">修改</a></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="page_box">
+            <div class="col-lg-4 col-sm-4">
+              共<span class="ng-binding">{{pageParams.totalItems}}</span>条数据，每页<span
+                class="ng-binding">{{pageParams.itemsPerPage}}</span>条。
+            </div>
+
+            <ul ng-if="pageParams.totalItems" uib-pagination total-items="pageParams.totalItems"
+                ng-model="pageParams.currentPage" max-size="pageParams.maxSize"
+                previous-text="上一页" next-text="下一页"
+                items-per-page="pageParams.itemsPerPage" ng-change="getAgents()"
+                class="pagination-sm" boundary-link-numbers="true"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

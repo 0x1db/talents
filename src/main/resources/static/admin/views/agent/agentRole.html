@@ -1,0 +1,36 @@
+<div class="add-role-page-container">
+  <form class="form form-horizontal" id="form-admin-role-add">
+    <div class="row cl">
+      <label class="form-label col-xs-4 col-sm-3">用户：</label>
+      <div class="formControls col-xs-8 col-sm-9">
+        <input type="text" class="input-text" placeholder="" id="roleName" disabled
+               ng-model="agentInfo.name">
+      </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-xs-4 col-sm-3">角色：</label>
+      <div class="formControls col-xs-8 col-sm-9">
+        <dl class="permission-list">
+          <dd>
+            <dl class="cl permission-list2">
+              <dd>
+                <label class="" ng-repeat="x in roles track by $index">
+                  <input type="checkbox" value="" name="role"
+                         ng-model="x.hasChecked">{{x.comment}}
+                </label>
+              </dd>
+            </dl>
+          </dd>
+        </dl>
+      </div>
+    </div>
+    <div class="row cl">
+      <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+        <button class="btn btn-success radius" id="admin-role-save" name="admin-role-save"
+                ng-click="bind()"><i class="icon-ok"></i> 确定
+        </button>
+        <button class="btn btn-warning" type="button" ui-sref="me.agent">取消</button>
+      </div>
+    </div>
+  </form>
+</div>

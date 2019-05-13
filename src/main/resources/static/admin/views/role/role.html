@@ -1,0 +1,220 @@
+<nav class="breadcrumb"><i class="fa fa-home"></i> 首页 <span class="c-gray en">&gt;</span>用户管理<span
+    class="c-gray en">&gt;</span>业主用户管理
+</nav>
+<div class="contentContainer viewAni ng-scope" style="">
+  <style>
+    .form-group {
+      padding-left: 10px;
+    }
+  </style>
+  <div class="content_box ng-scope" perfect-scrollbar=""
+       wheel-propagation="false" wheel-speed="10" min-scrollbar-length="20"
+       ng-scrollbars="">
+
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">业主管理</h3>
+      </div>
+      <div class="panel-body">
+        <div class="content_header form-inline">
+          <form class="ng-pristine ng-valid ng-valid-date">
+            <div class="form-group">
+              <label>小区: </label>
+              <div class="selected_address"
+                   style="width: 150px;display: inline-block;vertical-align:middle">
+                <select ui-select2="vm.option" id="communityId" placeholder="--- 请选择 ---"
+                        style="width: 100%" ng-model='getAgentsParams.communityId'>
+                  <option ng-repeat="x in communityDataList" value="{{x.id}}"
+                          ng-selected="getAgentsParams.communityId == x.id">{{x.name}}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>楼栋: </label>
+              <div class="selected_address"
+                   style="width: 150px;display: inline-block;vertical-align:middle">
+                <select ui-select2="vm.option" id="towerId" placeholder="--- 请选择 ---"
+                        style="width: 100%" ng-model='getAgentsParams.towerId'>
+                  <option ng-repeat="x in towerDataList" value="{{x.id}}">{{x.shortName}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>单元: </label>
+              <div class="selected_address"
+                   style="width: 150px;display: inline-block;vertical-align:middle">
+                <select ui-select2="vm.option" id="elementId" placeholder="--- 请选择 ---"
+                        style="width: 100%" ng-model='getAgentsParams.elementId'>
+                  <option ng-repeat="x in elementDataList" value="{{x.id}}">{{x.elementNumber}}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>门户: </label>
+              <div class="selected_address"
+                   style="width: 150px;display: inline-block;vertical-align:middle">
+                <select ui-select2="vm.option" id="portalId" placeholder="--- 请选择 ---"
+                        style="width: 100%" ng-model='getAgentsParams.portalId'>
+                  <option ng-repeat="x in portalDataList" value="{{x.id}}">{{x.portalNum}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>业主名称:</label> <input type="text"
+                                          class="form-control ng-pristine ng-untouched ng-valid ng-empty"
+                                          ng-model="getAgentsParams.name" placeholder="业主名称">
+            </div>
+            <div class="form-group">
+              <label>账号:</label> <input type="text"
+                                        class="form-control ng-pristine ng-untouched ng-valid ng-empty"
+                                        ng-model="getAgentsParams.account" placeholder="用户账号">
+            </div>
+            <!--            <div class="form-group"
+                             has-permission="/v1/agents/upload&POST">
+                          <p class="fileUpload btn btn-primary">
+                            <span>上传excel</span>
+                            <input id="uploadBtn" type="file" class="upload" ng-src={{files[0].name}}
+                                   onchange='angular.element(this).scope().fileChanged(this)'
+                                   accept=".xls,.xlsx"/>
+                          </p>
+                        </div>-->
+            <!--<div class="clear_float"></div>-->
+            <div class="agent_btn">
+              <button type="submit" class="btn btn-large btn-primary fr"
+                      ng-click="getAgents()">
+                <i class="fa fa-search"></i>搜索
+              </button>
+              <button class="btn btn-default btn-large fr" ng-click="resetParams()">重置</button>
+              <!--<button type="button" class="btn btn-success fr"
+                      ui-sref="me.addOwner">新增业主
+              </button>-->
+            </div>
+
+          </form>
+        </div>
+        <div class="content_body">
+          <td class="table-responsive">
+            <table
+                class="table table-bordered table-hover table-s table-overflow-x text-c">
+              <thead>
+              <tr class="text-c">
+                <th>账号</th>
+                <th>业主名称</th>
+                <th>小区</th>
+                <th>楼栋</th>
+                <th>单元</th>
+                <th>门牌号</th>
+                <th>用户类型</th>
+                <th>人脸采集</th>
+                <th>IC卡号</th>
+                <th>审核</th>
+                <th>修改时间</th>
+                <th>账号状态</th>
+                <th>操作</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr class="ng-scope" ng-repeat="x in agents">
+                <td class="ng-binding" style="vertical-align:middle">{{x.account}}</td>
+                <td class="ng-binding" style="vertical-align:middle">{{x.name}}</td>
+                <td class="ng-binding" style="vertical-align:middle">
+                  <p class="border_below" ng-repeat="xx in x.portalUser">
+                    {{xx.portal.element.tower.community.name}}
+                  </p>
+                </td>
+                <td class="ng-binding" style="vertical-align:middle">
+                  <p class="border_below" ng-repeat="xx in x.portalUser">
+                    {{xx.portal.element.tower.shortName}}
+                  </p>
+                </td>
+                <td class="ng-binding" style="vertical-align:middle">
+                  <p class="border_below" ng-repeat="xx in x.portalUser">
+                    {{xx.portal.element.elementNumber}}
+                  </p>
+                </td>
+                <td class="ng-binding" style="vertical-align:middle">
+                  <p class="border_below" ng-repeat="xx in x.portalUser">
+                    {{xx.portal.portalNum}}
+                  </p>
+                </td>
+                <td class="ng-binding" style="vertical-align:middle">
+                  <p class="border_below" ng-repeat="xx in x.portalUser">
+                    <span ng-if="xx.type == '01'">业主</span>
+                    <span ng-if="xx.type == '02'">住 户</span>
+                    <span ng-if="xx.type == '03'">业主亲属</span>
+                    <span ng-if="xx.type == '99'">其他</span>
+                    <span ng-if="xx.type == null ">未知</span>
+                  </p>
+                </td>
+                <td class="ng-binding" style="vertical-align:middle">
+                  <span ng-if="x.faceInfo == ''">未采集</span>
+                  <span ng-if="x.faceInfo != ''" class="require_span">已采集</span>
+                </td>
+                <td class="ng-binding">
+                  <p class="border_below" ng-repeat="xx in x.cardNumbers">
+                    <span ng-if="xx.number.length>6">{{xx.number | limitTo:6}}***</span>
+                    <span ng-if="xx.number.length<7">{{xx.number}}</span>
+                  </p>
+                </td>
+                <td class="ng-binding">
+                  <p class="border_below" ng-repeat="xx in x.portalUser">
+                    <span ng-if="xx.status == '00' " class="require_span">已删除</span>
+                    <span ng-if="xx.status == '01' ">审核中</span>
+                    <span ng-if="xx.status == '02' " class="require_span_green">已审核</span>
+                    <span ng-if="xx.status == '03' " class="require_span">审核失败</span>
+                  </p>
+                </td>
+                <td class="ng-binding" style="vertical-align:middle">{{x.modifyDate |
+                  date:"yyyy-MM-dd HH:mm:ss"}}
+                </td>
+                <td class="ng-binding" style="vertical-align:middle">
+                  <span ng-if="x.userStatus == '00'" class="require_span">已删除</span>
+                  <span ng-if="x.userStatus == '01'">待审核</span>
+                  <span ng-if="x.userStatus == '02'" class="require_span_green">已审核</span>
+                  <span ng-if="x.userStatus == '03'" class="require_span">审核失败</span>
+                  <span ng-if="x.userStatus == '99'">初始</span>
+                </td>
+                <td class="f-14" style="vertical-align:middle">
+                  <a has-permission="/v1/agents/bindSNumber&POST" class="op_item"
+                     ui-sref="me.bindSNumber({agentId: x.id})"
+                     style="cursor: pointer;">添加卡号</a>
+                  <a has-permission="/v1/agents/deleteSNumber/&DELETE" class="op_item"
+                     ng-click="deleteSNumber(x.id)"
+                     style="cursor: pointer;">清除卡号</a>
+                  <!--<a ng-if="x.status != '0'" class="!hasDisable"
+                     class="op_item" style="cursor: pointer;"
+                     has-permission="/v1/agents/delete/&DELETE"
+                     ng-click="deleteAgent(x.id)">删除</a>
+                  <a class="op_item" ui-sref="me.mobileRole({agentId: x.id})"
+                     has-permission="/v1/agents/bindRoleForUser/&POST"
+                     style="cursor: pointer;">设置角色</a>-->
+                </td>
+              </tr>
+              </tbody>
+            </table>
+        </div>
+        <div class="page_box">
+          <div class="col-lg-4 col-sm-4">
+            共<span class="ng-binding">{{pageParams.totalItems}}</span>条数据，每页<span
+              class="ng-binding">{{pageParams.itemsPerPage}}</span>条。
+          </div>
+
+          <ul ng-if="pageParams.totalItems" uib-pagination total-items="pageParams.totalItems"
+              ng-model="pageParams.currentPage" max-size="pageParams.maxSize"
+              previous-text="上一页" next-text="下一页"
+              items-per-page="pageParams.itemsPerPage" ng-change="getAgents()"
+              class="pagination-sm" boundary-link-numbers="true"></ul>
+        </div>
+        <div class="errorList" style="display: none;">
+          <p class="ng-scope" ng-repeat="x in dataList">
+            <span>{{x}}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>

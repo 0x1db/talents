@@ -1,0 +1,20 @@
+## dev
+spring:
+  profiles: dev
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://localhost:3306/talents?serverTimezone=UTC&characterEncoding=UTF-8
+    username:  root
+    password:  123456
+    driverClassName: com.mysql.jdbc.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    #设置方言指定默认生成表的存储引擎为InnoDB
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+
+roles:
+  deleteDeny: ADMIN,AGENT,MERCHANT
+author:
+  ignoreUrls: /,/home,/error,/v1/security/loginFail,/v1/security/loginSuccess,/login,/admin/**,/static/**,/css,/js/
