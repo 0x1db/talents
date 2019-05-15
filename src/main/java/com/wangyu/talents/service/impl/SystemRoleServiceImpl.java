@@ -2,7 +2,7 @@ package com.wangyu.talents.service.impl;
 
 import com.google.common.collect.Lists;
 import com.wangyu.talents.common.base.BaseServiceImpl;
-import com.wangyu.talents.dao.SystemRoleRepository;
+import com.wangyu.talents.repository.SystemRoleRepository;
 import com.wangyu.talents.entity.SystemRoleEntity;
 import com.wangyu.talents.service.SystemRoleService;
 import java.util.Collections;
@@ -24,18 +24,24 @@ public class SystemRoleServiceImpl extends BaseServiceImpl<SystemRoleEntity> imp
     SystemRoleService {
 
   @Autowired
-  private SystemRoleRepository roleDao;
+  private SystemRoleRepository roleRepository;
 
   @Override
   public List<SystemRoleEntity> findByUserId(String id) {
     Validate.notBlank(id, "用户ID不能为空");
 
-    Set<SystemRoleEntity> roles = roleDao.findByUserId(id);
+    Set<SystemRoleEntity> roles = roleRepository.findByUserId(id);
     if (roles == null || roles.isEmpty()) {
       return Collections.emptyList();
     }
 
     List<SystemRoleEntity> roleList = Lists.newArrayList(roles);
     return roleList;
+  }
+
+  @Override
+  public List<SystemRoleEntity> findByResourceId(String id) {
+    //TODO
+    return null;
   }
 }

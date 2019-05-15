@@ -1,4 +1,4 @@
-package com.wangyu.talents.dao;
+package com.wangyu.talents.repository;
 
 import com.wangyu.talents.common.base.BaseRepository;
 import com.wangyu.talents.entity.SystemUserEntity;

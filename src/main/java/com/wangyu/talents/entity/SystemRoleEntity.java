@@ -51,17 +51,10 @@ public class SystemRoleEntity extends BaseEntity {
    * 与权限多对多
    */
   @ManyToMany(fetch = FetchType.LAZY)
-  @JoinTable(name = "sys_role_menu", joinColumns = {
-      @JoinColumn(name = "role_id")}, inverseJoinColumns = {@JoinColumn(name = "menu_id")})
-  private Set<SystemMenuEntity> menus;
+  @JoinTable(name = "sys_role_resource", joinColumns = {
+      @JoinColumn(name = "role_id")}, inverseJoinColumns = {@JoinColumn(name = "resource_id")})
+  private Set<SystemResourceEntity> systemResources;
 
-  /**
-   * 与机构多对多
-   */
-  @ManyToMany(fetch = FetchType.LAZY)
-  @JoinTable(name = "sys_role_dept", joinColumns = {
-      @JoinColumn(name = "role_id")}, inverseJoinColumns = {@JoinColumn(name = "dept_id")})
-  private Set<SystemDeptEntity> depts;
 
   /**
    * 创建人
@@ -113,14 +106,6 @@ public class SystemRoleEntity extends BaseEntity {
     this.users = users;
   }
 
-  public Set<SystemMenuEntity> getMenus() {
-    return menus;
-  }
-
-  public void setMenus(Set<SystemMenuEntity> menus) {
-    this.menus = menus;
-  }
-
   public SystemUserEntity getCreator() {
     return creator;
   }
@@ -145,13 +130,6 @@ public class SystemRoleEntity extends BaseEntity {
     this.deleteFlag = deleteFlag;
   }
 
-  public Set<SystemDeptEntity> getDepts() {
-    return depts;
-  }
-
-  public void setDepts(Set<SystemDeptEntity> depts) {
-    this.depts = depts;
-  }
 
   public String getRemark() {
     return remark;
@@ -159,5 +137,14 @@ public class SystemRoleEntity extends BaseEntity {
 
   public void setRemark(String remark) {
     this.remark = remark;
+  }
+
+  public Set<SystemResourceEntity> getSystemResources() {
+    return systemResources;
+  }
+
+  public void setSystemResources(
+      Set<SystemResourceEntity> systemResources) {
+    this.systemResources = systemResources;
   }
 }

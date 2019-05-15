@@ -15,6 +15,6 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
 
 roles:
-  deleteDeny: ADMIN,AGENT,MERCHANT
+  deleteDeny: ADMIN
 author:
   ignoreUrls: /,/home,/error,/v1/security/loginFail,/v1/security/loginSuccess,/login,/admin/**,/static/**,/css,/js/
