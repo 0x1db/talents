@@ -1,7 +1,7 @@
 package com.wangyu.talents.service.impl;
 
 import com.wangyu.talents.common.base.BaseServiceImpl;
-import com.wangyu.talents.dao.SystemUserRepository;
+import com.wangyu.talents.repository.SystemUserRepository;
 import com.wangyu.talents.entity.SystemUserEntity;
 import com.wangyu.talents.service.SystemUserService;
 import org.springframework.beans.factory.annotation.Autowired;

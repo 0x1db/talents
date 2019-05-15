@@ -1,7 +1,8 @@
-package com.wangyu.talents.dao;
+package com.wangyu.talents.repository;
 
 import com.wangyu.talents.common.base.BaseRepository;
 import com.wangyu.talents.entity.SystemRoleEntity;
+import java.util.List;
 import java.util.Set;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

@@ -17,4 +17,9 @@ public interface SystemRoleService extends BaseService<SystemRoleEntity> {
    * 根据用户ID查询角色信息
    */
   List<SystemRoleEntity> findByUserId(String id);
+
+  /**
+   * 根据资源ID查询
+   */
+  List<SystemRoleEntity> findByResourceId(String id);
 }
