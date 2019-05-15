@@ -1,6 +1,7 @@
 package com.wangyu.talents.repository;
 
 import com.wangyu.talents.common.base.BaseRepository;
+import com.wangyu.talents.common.enums.StatusEnum;
 import com.wangyu.talents.entity.SystemResourceEntity;
 import java.util.List;
 import org.springframework.data.jpa.repository.Query;
@@ -19,7 +20,7 @@ public interface SystemResourceRepository extends BaseRepository<SystemResourceE
    * 按状态查询权限列表
    */
   @Query("select menu from SystemResourceEntity menu where menu.status=:status")
-  List<SystemResourceEntity> findListByStatus(@Param("status") Integer status);
+  List<SystemResourceEntity> findListByStatus(@Param("status") StatusEnum status);
 
   /**
    * 根据路径查询

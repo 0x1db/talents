@@ -2,8 +2,6 @@ package com.wangyu.talents.entity;
 
 import com.wangyu.talents.common.base.BaseEntity;
 import com.wangyu.talents.common.enums.StatusEnum;
-import java.util.Date;
-import java.util.Objects;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,44 +22,35 @@ import javax.persistence.Table;
  **/
 @Entity
 @Table(name = "sys_resource")
+@org.hibernate.annotations.Table(appliesTo = "sys_resource", comment = "系统资源表")
 public class SystemResourceEntity extends BaseEntity {
 
-  /**
-   * 权限URL串.
-   **/
-  @Column(name = "resource", nullable = false)
-  private String resource = "";
+  private static final long serialVersionUID = -5541630050367795602L;
 
   /**
-   * 涉及的方法描述<br> 例如：POST或者POST|GET|DELETE|PATCH 等等
+   * 权限URL串
+   **/
+  @Column(name = "resource", length = 100, nullable = false, columnDefinition = "varchar(100) COMMENT '权限URL串'")
+  private String resource;
+
+  /**
+   * 涉及的方法描述 例如：POST或者POST|GET|DELETE|PATCH 等等
    */
-  @Column(name = "methods", nullable = false)
-  private String methods = "";
+  @Column(name = "methods", nullable = false, length = 10, columnDefinition = "varchar(10) COMMENT '方法'")
+  private String methods;
 
   /**
-   * 创建时间.
-   **/
-  @Column(name = "create_date", nullable = false)
-  private Date createDate = new Date();
-
-  /**
-   * 修改时间.
-   **/
-  @Column(name = "modified_date")
-  private Date modifiedDate;
-
-  /**
-   * 状态 1正常, 0禁用（枚举）.
+   * 状态 1正常, 0禁用（枚举）
    **/
   @Enumerated(EnumType.ORDINAL)
-  @Column(name = "status", nullable = false)
-  private StatusEnum status = StatusEnum.NORMAL;
+  @Column(name = "status", nullable = false, columnDefinition = "int(2) COMMENT '状态 1：正常 0:禁用'")
+  private StatusEnum status = StatusEnum.STATUS_NORMAL;
 
   /**
-   * 创建人.
+   * 创建人
    **/
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "creator_id", nullable = false)
+  @JoinColumn(name = "creator_id", columnDefinition = "varchar(36) COMMENT '创建人ID'")
   private SystemUserEntity creator;
 
   /**
@@ -71,16 +60,16 @@ public class SystemResourceEntity extends BaseEntity {
   private Set<SystemRoleEntity> roles;
 
   /**
-   * 备注.
+   * 描述
    **/
-  @Column(name = "remark", nullable = false)
-  private String remark = "";
+  @Column(name = "remark", length = 64, columnDefinition = "varchar(64) COMMENT '描述'")
+  private String description;
 
   /**
    * 最后一次修改人
    */
   @ManyToOne
-  @JoinColumn(name = "modifier_id")
+  @JoinColumn(name = "modifier_id", columnDefinition = "varchar(36) COMMENT '修改人ID'")
   private SystemUserEntity modifier;
 
   public String getResource() {
@@ -97,26 +86,6 @@ public class SystemResourceEntity extends BaseEntity {
 
   public void setMethods(String methods) {
     this.methods = methods;
-  }
-
-  @Override
-  public Date getCreateDate() {
-    return createDate;
-  }
-
-  @Override
-  public void setCreateDate(Date createDate) {
-    this.createDate = createDate;
-  }
-
-  @Override
-  public Date getModifiedDate() {
-    return modifiedDate;
-  }
-
-  @Override
-  public void setModifiedDate(Date modifiedDate) {
-    this.modifiedDate = modifiedDate;
   }
 
   public StatusEnum getStatus() {
@@ -143,12 +112,12 @@ public class SystemResourceEntity extends BaseEntity {
     this.roles = roles;
   }
 
-  public String getRemark() {
-    return remark;
+  public String getDescription() {
+    return description;
   }
 
-  public void setRemark(String remark) {
-    this.remark = remark;
+  public void setDescription(String description) {
+    this.description = description;
   }
 
   public SystemUserEntity getModifier() {

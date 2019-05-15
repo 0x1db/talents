@@ -8,35 +8,6 @@ angular.module('talents',
     event: false
   });
 }])
-.config(function ($httpProvider) {
-  $httpProvider.interceptors.push('UserInterceptor');
-})
-.run(function ($rootScope, $urlRouter, $state, $cookies, getUserRole) {
-
-  $rootScope.returnPage = function () {
-    window.history.go(-1);
-  }
-  /*监听自定义服务*/
-  $rootScope.$on('userIntercepted', function (errorType) {
-    // 跳转到登录界面，这里记录了一个from，这样可以在登录后自动跳转到未登录之前的那个界面
-    $cookies.remove('USERNAME');
-//		  	$state.go('login',{from:$state.current.name,w:'seesionOut'});
-    $state.go('login');
-  });
-  //获取当前地址栏的url
-  $rootScope.$on('$locationChangeSuccess', function (evt) {
-    if (!$cookies.get('USERNAME')) {
-      evt.preventDefault();//取消默认跳转行为
-      $state.go('login');
-    }
-
-    //console.log(window.location.href);
-    $rootScope.ch = window.location.href;
-    $rootScope.USERNAME = $cookies.get('USERNAME');
-  });
-
-  getUserRole();
-})
 .factory(
     'permissions',
     function ($rootScope, $window) {
@@ -75,10 +46,36 @@ angular.module('talents',
         }
       }
     })
-.directive('hasPermission', function (permissions, $http, $window, $cookies) {
+.config(function ($httpProvider) {
+  $httpProvider.interceptors.push('UserInterceptor');
+})
+.run(function ($rootScope, $urlRouter, $state, $cookies, getUserRole) {
+  /*监听自定义服务*/
+  $rootScope.$on('userIntercepted', function (errorType) {
+    // 跳转到登录界面，这里记录了一个from，这样可以在登录后自动跳转到未登录之前的那个界面
+    $cookies.remove('USERNAME');
+    $state.go('login');
+  });
+  //获取当前地址栏的url
+  $rootScope.$on('$locationChangeSuccess', function (evt) {
+    if (!$cookies.get('USERNAME')) {
+      evt.preventDefault();//取消默认跳转行为
+      $state.go('login');
+    }
+
+    $rootScope.ch = window.location.href;
+    $rootScope.USERNAME = $cookies.get('USERNAME');
+  });
+
+  $rootScope.returnPage = function () {
+    window.history.go(-1);
+  }
+  getUserRole();
+})
+
+.directive('hasPermission', function (permissions, $http, $window) {
   return {
     link: function (scope, element, attrs) {
-
       if (!attrs.hasPermission) {
         return false;
       }
@@ -94,7 +91,6 @@ angular.module('talents',
           if (SSRoles && SSRoles.indexOf(roleUrlStr[i]) > -1) {
             element.show();
             return false;
-            // isRole = true;
           } else {
             isRole = isRole + 1;
           }
@@ -111,6 +107,7 @@ angular.module('talents',
           element.hide();
         }
       }
+
     }
   };
-});
+})

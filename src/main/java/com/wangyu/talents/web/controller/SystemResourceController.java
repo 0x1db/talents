@@ -2,6 +2,7 @@ package com.wangyu.talents.web.controller;
 
 import com.google.common.collect.Sets;
 import com.wangyu.talents.common.base.BaseController;
+import com.wangyu.talents.common.enums.StatusEnum;
 import com.wangyu.talents.common.model.ResponseCode;
 import com.wangyu.talents.common.model.ResponseModel;
 import com.wangyu.talents.entity.SystemResourceEntity;
@@ -24,11 +25,11 @@ import org.springframework.web.bind.annotation.RestController;
  * @Version 1.0
  **/
 @RestController
-@RequestMapping("/v1/menu")
+@RequestMapping("/v1/resource")
 public class SystemResourceController extends BaseController {
 
   @Autowired
-  private SystemResourceService menuService;
+  private SystemResourceService resourceService;
 
   /**
    * 根据当前登录用户查询权限信息
@@ -48,17 +49,18 @@ public class SystemResourceController extends BaseController {
       //如果是超级管理员，则直接查询所有有效的权限信息并返回
       if ("admin".equalsIgnoreCase(role.getName())) {
         //查询所有状态正常的权限信息
-        List<SystemResourceEntity> allList = menuService.findListByStatus(1);
+        List<SystemResourceEntity> allList = resourceService
+            .findListByStatus(StatusEnum.STATUS_NORMAL);
         list.addAll(allList);
         break;
       }
 
-      List<SystemResourceEntity> roleList = menuService.findByRoleId(role.getId());
+      List<SystemResourceEntity> roleList = resourceService.findByRoleId(role.getId());
       if (list != null) {
         list.addAll(roleList);
       }
     }
-    return this.buildHttpResult(list);
+    return this.buildHttpResult(list, "creator", "modifier", "roles");
   }
 
 }

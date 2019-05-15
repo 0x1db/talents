@@ -1,6 +1,7 @@
 package com.wangyu.talents.service.impl;
 
 import com.wangyu.talents.common.base.BaseServiceImpl;
+import com.wangyu.talents.common.enums.StatusEnum;
 import com.wangyu.talents.repository.SystemResourceRepository;
 import com.wangyu.talents.entity.SystemResourceEntity;
 import com.wangyu.talents.service.SystemResourceService;
@@ -29,7 +30,7 @@ public class SystemResourceServiceImpl extends BaseServiceImpl<SystemResourceEnt
   }
 
   @Override
-  public List<SystemResourceEntity> findListByStatus(Integer status) {
+  public List<SystemResourceEntity> findListByStatus(StatusEnum status) {
     Validate.notNull(status, "状态不能为空");
     return menuRepository.findListByStatus(status);
   }

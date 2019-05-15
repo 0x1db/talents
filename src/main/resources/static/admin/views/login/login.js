@@ -52,6 +52,8 @@ angular.module('talents.login', ['talents.serve'])
           if (res.data.data != null) {
             $cookies.put('USERNAME', res.data.data);
           }
+          //获取权限列表
+          getUserRole();
           $state.go(from && from != "login" ? from : 'me.agent');
         }, function (err) {
           console.log(err);

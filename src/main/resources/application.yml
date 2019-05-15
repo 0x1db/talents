@@ -30,7 +30,7 @@ spring:
       min-idle: 1
 
 author:
-  ignoreUrls: /login
+  ignoreUrls: /,/login,/v1/security/loginFail,/v1/security/loginSuccess,/v1/**
 
 ### jwt
 jwt:

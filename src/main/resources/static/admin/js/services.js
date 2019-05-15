@@ -272,19 +272,15 @@ angular.module('talents.serve', [])
 .factory('getUserRole',
     function (mainUrl, $http, $cookies, $window, userRoles) {
       return function () {
-        if (!$cookies.getObject('user')) {
+        if (!$cookies.get('USERNAME')) {
           return false;
         }
 
         var settings = {
           "async": false,
           "crossDomain": true,
-          "url": mainUrl + "/v1/menu/findByCurrentUser",
+          "url": mainUrl + "/v1/resource/findByCurrentUser",
           "method": "GET",
-          // "headers": {
-          //     "cache-control": "no-cache",
-          //     "Postman-Token": "55401920-ec5e-44c2-aaf3-6c60cdfe5080"
-          // }
         }
 
         $.ajax(settings).done(function (res) {
