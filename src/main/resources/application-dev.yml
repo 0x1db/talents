@@ -17,4 +17,4 @@ spring:
 roles:
   deleteDeny: ADMIN
 author:
-  ignoreUrls: /,/home,/error,/v1/security/loginFail,/v1/security/loginSuccess,/login,/admin/**,/static/**,/css,/js/
+  ignoreUrls: /,/home,/error,/v1/security/loginFail,/v1/security/loginSuccess,/login,/admin/**,/v1/**,/static/**,/css,/js/

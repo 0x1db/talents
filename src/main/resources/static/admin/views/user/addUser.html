@@ -1,0 +1,72 @@
+<div class="modal-dialog ">
+  <div class="modal-content">
+    <style class="ng-scope">
+      .col-md-2 {
+        width: 18.66666667%;
+      }
+
+      @media (min-width: 992px) {
+        .form-tips {
+          padding-left: 30px;
+        }
+      }
+    </style>
+    <div class="modal-header ng-scope">
+      <h3 class="modal-title">新增用户</h3>
+    </div>
+    <div class="modal-body ng-scope">
+      <form class="form-horizontal" name="userForm" style="">
+        <div class="form-group">
+          <label class="col-md-2 control-label">用户昵称: </label>
+          <div class="col-md-9"
+               ng-class="{ 'has-error' : userForm.nickname.$invalid && (!userForm.nickname.$pristine || userForm.nickname.$touched) }">
+            <input type="text" class="form-control" placeholder="请输入用户昵称" name="nickname"
+                   ng-model="userInfo.nickname" ng-minlength="1" ng-maxlength="20"
+                   style="">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label"><span class="require_span">*</span>账号: </label>
+          <div class="col-md-9"
+               ng-class="{ 'has-error' : userForm.username.$invalid && (!userForm.username.$pristine || userForm.username.$touched) }">
+            <input type="text" name="username" style="display: none">
+            <input type="text" class="form-control " placeholder="请输入账号" name="username"
+                   username-validate=""
+                   ng-pattern="/^[a-zA-Z\d]{4,20}$/" ng-model="userInfo.username" required=""
+                   style="">
+          </div>
+          <div class="col-md-9 col-md-offset-2 form-tips"
+               ng-if="!userForm.username.$pristine || userForm.username.$touched"
+               ng-messages="userForm.username.$error" role="alert">
+            <div ng-message="username-validate">账号已存在,请重新输入</div>
+            <div ng-message="pattern">账号长度必须为4-20个字符，大小写英文字符或数字</div>
+            <div ng-message="required">账号不能为空</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label"><span class="require_span">*</span>密码: </label>
+          <div class="col-md-9"
+               ng-class="{ 'has-error' : userForm.password.$invalid && (!userForm.password.$pristine || userForm.password.$touched) }">
+            <input type="password" name="password" style="display: none">
+            <input type="password"
+                   class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required ng-valid-pattern"
+                   placeholder="请输入密码" name="password" ng-model="agentInfo.password"
+                   ng-pattern="/^[a-zA-Z\d]{6,12}$/" required="" style="">
+          </div>
+          <div class="col-md-9 col-md-offset-2 form-tips"
+               ng-if="!userForm.password.$pristine || userForm.password.$touched"
+               ng-messages="userForm.password.$error" role="alert">
+            <div ng-message="pattern">密码长度必须为6-12个字符，大小写英文字符或数字</div>
+            <div ng-message="required">密码不能为空</div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer ng-scope">
+      <button class="btn btn-primary" ng-disabled="userForm.$invalid" type="button"
+              ng-click="registerUser()">提交
+      </button>
+      <button class="btn btn-warning" type="button" ui-sref="me.user">取消</button>
+    </div>
+  </div>
+</div>

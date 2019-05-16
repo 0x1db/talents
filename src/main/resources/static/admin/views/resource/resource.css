@@ -1,0 +1,92 @@
+.table-overflow-x {
+  min-width: 1000px;
+  overflow-x: scroll;
+}
+
+.agent_btn {
+  margin: 10px 0;
+}
+
+.fileUpload {
+  position: relative;
+  overflow: hidden;
+  margin-left: 20px;
+}
+
+.fileUpload input.upload {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+
+.selected_address {
+  overflow: hidden;
+}
+
+.selected_address span.selected-list {
+  float: left;
+  margin: 0 10px;
+  padding: 0 10px;
+  line-height: 38px;
+  height: 39px;
+  border-bottom: 1px solid #909090;
+}
+
+.all_address {
+  overflow: hidden;
+  margin-top: 20px;
+  border-top: 1px solid #909090;
+  border-left: 1px solid #909090;
+}
+
+.all_address p {
+  float: left;
+  width: 25%;
+  border: 1px solid #909090;
+  margin: -1px 0 0 -1px;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+}
+
+.me-btn {
+  border: 1px solid #2cb2a8;
+  background-color: #fff;
+  color: #2cb2a8;
+  border-radius: 0;
+  height: 32px;
+  padding: 0 15px;
+  margin: 8px;
+  line-height: 32px;
+  outline: none;
+  display: inline-block;
+}
+
+.selected_address .selected-list, .selected_address .all_address {
+  display: none;
+}
+
+.selected-input:read-only {
+  cursor: pointer;
+  background: #fff;
+}
+
+.selected_address:hover .selected-list, .selected_address:hover .all_address {
+  display: block;
+}
+
+.selected-list {
+  cursor: pointer;
+  background: #fff;
+}
+
+.selected-cursor {
+  cursor: pointer;
+  background: #fff;
+}

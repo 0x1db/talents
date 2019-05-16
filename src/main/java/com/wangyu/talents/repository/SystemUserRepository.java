@@ -1,6 +1,7 @@
 package com.wangyu.talents.repository;
 
 import com.wangyu.talents.common.base.BaseRepository;
+import com.wangyu.talents.common.enums.StatusEnum;
 import com.wangyu.talents.entity.SystemUserEntity;
 import org.springframework.data.jpa.repository.Query;
 
@@ -19,5 +20,10 @@ public interface SystemUserRepository extends BaseRepository<SystemUserEntity> {
    * @param username 用户名
    */
   @Query("from SystemUserEntity user where user.username = ?1 and user.status=?2")
-  SystemUserEntity findByUsernameAndStatus(String username, String status);
+  SystemUserEntity findByUsernameAndStatus(String username, StatusEnum status);
+
+  /**
+   * 根据账号查询用户
+   */
+  SystemUserEntity findByUsername(String username);
 }

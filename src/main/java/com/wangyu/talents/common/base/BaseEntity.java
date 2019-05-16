@@ -26,13 +26,14 @@ public class BaseEntity implements Serializable {
   @Id
   @GeneratedValue(generator = "uuid")
   @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
+  @Column(length = 36, unique = true, nullable = false, columnDefinition = "varchar(36) COMMENT 'ID'")
   private String id;
 
   /**
    * 创建时间
    */
   @Column(name = "create_date", columnDefinition = "datetime COMMENT '创建时间'")
-  private Date createDate;
+  private Date createDate = new Date();
 
   /**
    * 修改时间
@@ -43,7 +44,7 @@ public class BaseEntity implements Serializable {
   /**
    * 删除标识 false : 已删除 true :正常
    */
-  @Column(name = "delete_flag")
+  @Column(name = "delete_flag", columnDefinition = "bit COMMENT '删除标识 0:已删除，1：正常'")
   private Boolean deleteFlag;
 
   public String getId() {

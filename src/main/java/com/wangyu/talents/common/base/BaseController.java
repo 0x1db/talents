@@ -1,5 +1,6 @@
 package com.wangyu.talents.common.base;
 
+import com.wangyu.talents.common.enums.StatusEnum;
 import com.wangyu.talents.common.model.ResponseCode;
 import com.wangyu.talents.common.model.ResponseModel;
 import com.wangyu.talents.entity.SystemUserEntity;
@@ -319,7 +320,8 @@ public class BaseController {
 
     if (StringUtils.isNotEmpty(account)) {
       // 验证是否是代理商用户
-      SystemUserEntity opUser = this.systemUserService.findByUsernameAndStatus(account, "1");
+      SystemUserEntity opUser = this.systemUserService
+          .findByUsernameAndStatus(account, StatusEnum.STATUS_NORMAL);
       return opUser;
     }
 

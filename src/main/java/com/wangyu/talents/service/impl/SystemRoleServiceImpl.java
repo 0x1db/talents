@@ -20,8 +20,7 @@ import org.springframework.stereotype.Service;
  * @Version 1.0
  **/
 @Service("roleService")
-public class SystemRoleServiceImpl extends BaseServiceImpl<SystemRoleEntity> implements
-    SystemRoleService {
+public class SystemRoleServiceImpl implements SystemRoleService {
 
   @Autowired
   private SystemRoleRepository roleRepository;

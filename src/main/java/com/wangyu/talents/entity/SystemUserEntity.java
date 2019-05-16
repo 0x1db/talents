@@ -1,14 +1,20 @@
 package com.wangyu.talents.entity;
 
 import com.wangyu.talents.common.base.BaseEntity;
+import com.wangyu.talents.common.enums.StatusEnum;
+import com.wangyu.talents.common.enums.UserTypeEnum;
+import java.util.Date;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import org.checkerframework.checker.units.qual.C;
 
 /**
  * 系统用户实体
@@ -19,6 +25,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "sys_user")
+@org.hibernate.annotations.Table(appliesTo = "sys_user", comment = "系统用户表")
 public class SystemUserEntity extends BaseEntity {
 
   /**
@@ -29,26 +36,41 @@ public class SystemUserEntity extends BaseEntity {
   /**
    * 用户名
    */
-  @Column(name = "username", length = 32, unique = true, nullable = false)
+  @Column(name = "username", length = 32, unique = true, nullable = false, columnDefinition = "varchar(32) COMMENT '用户名'")
   private String username;
 
   /**
    * 密码
    */
-  @Column(name = "password", length = 64)
+  @Column(name = "password", length = 32, columnDefinition = "varchar(32) COMMENT '密码'")
   private String password;
 
   /**
-   * 真实姓名
+   * 昵称
    */
-  @Column(name = "true_name", length = 32)
-  private String trueName;
+  @Column(name = "nickname", length = 32, columnDefinition = "varchar(32) COMMENT '昵称'")
+  private String nickname;
 
   /**
-   * 状态 0：禁用 1：正常 TODO 使用枚举
+   * 用户头像
    */
-  @Column(name = "status", length = 2)
-  private String status = "1";
+  @Column(name = "head_img", length = 100, columnDefinition = "varchar(100) COMMENT '头像'")
+  private String head_img;
+
+  /**
+   * 状态 0：禁用 1：正常
+   */
+  @Enumerated(EnumType.ORDINAL)
+  @Column(name = "status", length = 2, columnDefinition = "int(2) COMMENT '状态 1：正常 0：禁用'")
+  private StatusEnum status = StatusEnum.STATUS_NORMAL;
+
+  /**
+   * 状态 0：禁用 1：正常
+   */
+  @Enumerated(EnumType.ORDINAL)
+  @Column(name = "type", length = 2, columnDefinition = "int(2) COMMENT '用户类型 1：后台用户 2：前端用户'")
+  private UserTypeEnum type;
+
 
   /**
    * 与对象多对多关联
@@ -60,15 +82,21 @@ public class SystemUserEntity extends BaseEntity {
    * 创建人
    */
   @ManyToOne
-  @JoinColumn(name = "creator_id")
+  @JoinColumn(name = "creator_id", columnDefinition = "varchar(36) COMMENT '创建人'")
   private SystemUserEntity creator;
 
   /**
    * 最后一次修改人
    */
   @ManyToOne
-  @JoinColumn(name = "modifier_id")
+  @JoinColumn(name = "modifier_id", columnDefinition = "varchar(36) COMMENT '最后一次修改人'")
   private SystemUserEntity modifier;
+
+  /**
+   * 最后登录时间
+   */
+  @Column(name = "last_login_time", columnDefinition = "datetime COMMENT '最后一次登录时间'")
+  private Date lastLoginTime;
 
   public String getUsername() {
     return username;
@@ -86,14 +114,6 @@ public class SystemUserEntity extends BaseEntity {
     this.password = password;
   }
 
-  public String getTrueName() {
-    return trueName;
-  }
-
-  public void setTrueName(String trueName) {
-    this.trueName = trueName;
-  }
-
   public Set<SystemRoleEntity> getRoles() {
     return roles;
   }
@@ -102,11 +122,11 @@ public class SystemUserEntity extends BaseEntity {
     this.roles = roles;
   }
 
-  public String getStatus() {
+  public StatusEnum getStatus() {
     return status;
   }
 
-  public void setStatus(String status) {
+  public void setStatus(StatusEnum status) {
     this.status = status;
   }
 
@@ -124,5 +144,37 @@ public class SystemUserEntity extends BaseEntity {
 
   public void setModifier(SystemUserEntity modifier) {
     this.modifier = modifier;
+  }
+
+  public String getNickname() {
+    return nickname;
+  }
+
+  public void setNickname(String nickname) {
+    this.nickname = nickname;
+  }
+
+  public String getHead_img() {
+    return head_img;
+  }
+
+  public void setHead_img(String head_img) {
+    this.head_img = head_img;
+  }
+
+  public UserTypeEnum getType() {
+    return type;
+  }
+
+  public void setType(UserTypeEnum type) {
+    this.type = type;
+  }
+
+  public Date getLastLoginTime() {
+    return lastLoginTime;
+  }
+
+  public void setLastLoginTime(Date lastLoginTime) {
+    this.lastLoginTime = lastLoginTime;
   }
 }

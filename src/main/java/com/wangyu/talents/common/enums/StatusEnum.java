@@ -8,8 +8,8 @@ package com.wangyu.talents.common.enums;
  * @Version 1.0
  **/
 public enum StatusEnum implements EnumTypeInterface {
-  DISABLED(0, "禁用"),
-  NORMAL(1, "正常");
+  STATUS_DISABLED(0, "禁用"),
+  STATUS_NORMAL(1, "正常");
 
   StatusEnum(int value, String desc) {
     this.value = value;

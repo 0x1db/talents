@@ -46,18 +46,33 @@ angular.module('talents')
       }
     }
   })
-  .state('me.agent', {
-    url: 'systemS/agent',
+  .state('me.user', {
+    url: 'systemS/user',
     views: {
       'contents@me': {
-        templateUrl: 'views/agent/agent.html',
+        templateUrl: 'views/user/user.html',
         resolve: {
           loadPlugin: ['$ocLazyLoad', function ($ocLazyLoad) {
             return $ocLazyLoad
-            .load(['views/agent/agent.js', 'views/agent/agent.css'])
+            .load(['views/user/user.js', 'views/user/user.css'])
           }]
         },
-        controller: 'agentCtrl'
+        controller: 'userCtrl'
+      }
+    }
+  })
+  .state('me.addUser', {
+    url: 'systemS/user/addUser',
+    views: {
+      'contents@me': {
+        templateUrl: 'views/user/addUser.html',
+        resolve: {
+          loadPlugin: ['$ocLazyLoad', function ($ocLazyLoad) {
+            return $ocLazyLoad
+            .load(['views/user/addUser.js', 'views/user/addUser.css'])
+          }]
+        },
+        controller: 'addUserCtrl'
       }
     }
   })
@@ -73,6 +88,21 @@ angular.module('talents')
           }]
         },
         controller: 'roleCtrl'
+      }
+    }
+  })
+  .state('me.resource', {
+    url: 'systemS/resource',
+    views: {
+      'contents@me': {
+        templateUrl: 'views/resource/resource.html',
+        resolve: {
+          loadPlugin: ['$ocLazyLoad', function ($ocLazyLoad) {
+            return $ocLazyLoad
+            .load(['views/resource/resource.js', 'views/resource/resource.css'])
+          }]
+        },
+        controller: 'resourceCtrl'
       }
     }
   })

@@ -1,6 +1,7 @@
 package com.wangyu.talents.service;
 
 import com.wangyu.talents.common.base.BaseService;
+import com.wangyu.talents.common.enums.StatusEnum;
 import com.wangyu.talents.entity.SystemResourceEntity;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
  * @Date 2019/4/14 17:36
  * @Version 1.0
  **/
-public interface SystemResourceService extends BaseService<SystemResourceEntity> {
+public interface SystemResourceService {
 
   /**
    * 根据权限ID查询
@@ -23,7 +24,7 @@ public interface SystemResourceService extends BaseService<SystemResourceEntity>
   /**
    * 按状态查询所有权限
    */
-  List<SystemResourceEntity> findListByStatus(Integer status);
+  List<SystemResourceEntity> findListByStatus(StatusEnum status);
 
   /**
    * 根据路径名查询

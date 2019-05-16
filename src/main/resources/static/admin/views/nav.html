@@ -1,15 +1,18 @@
 <div class="sub_nav_box" ng-show="currentNav!=''&&currentNav!=undefined">
   <ul class="navAni nav_list" ng-show="hasActive(ch, 'systemS')">
     <li class="nav_item"><a
-        ng-class="hasActive(ch,'agent')" ui-sref="me.agent">用户管理</a></li>
+        ng-class="hasActive(ch,'user')" ui-sref="me.user">用户管理</a></li>
     <li class="nav_item"><a
         ng-class="hasActive(ch,'role')" ui-sref="me.role">角色管理</a></li>
+    <li class="nav_item">
+      <a ng-class="hasActive(ch,'resource')" ui-sref="me.resource">资源管理</a>
+    </li>
   </ul>
 </div>
 <div class="main_nav_box">
   <ul class="nav_list">
-    <li class="nav_item">
-      <a ng-class="hasActive(ch, 'systemS')" ui-sref="me.agent" ng-click="selectedNav('agentS')">
+    <li class="nav_item"><!--has-permission="/v1/agents/getByCondition&GET"-->
+      <a ng-class="hasActive(ch, 'systemS')" ui-sref="me.user" ng-click="selectedNav('systemS')">
         <i class="fa fa-user-plus"></i>系统管理<i class="arrow fa fa-angle-right"></i>
       </a>
     </li>

@@ -15,7 +15,7 @@ public interface BaseService<T extends BaseEntity> {
   /**
    * 保存当个实体
    */
-  void save(T entity);
+  void create(T entity);
 
   /**
    * 修改单个实体
