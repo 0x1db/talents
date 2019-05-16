@@ -54,7 +54,7 @@ angular.module('talents.login', ['talents.serve'])
           }
           //获取权限列表
           getUserRole();
-          $state.go(from && from != "login" ? from : 'me.agent');
+          $state.go(from && from != "login" ? from : 'me.user');
         }, function (err) {
           console.log(err);
           layer.msg('用户名或密码错误，或者账号被禁用');
@@ -88,7 +88,7 @@ angular.module('talents.login', ['talents.serve'])
         $scope.loginOut();
       } else {
         if ($cookies.get('USERNAME')) {
-          $state.go('me.agent');
+          $state.go('me.user');
         }
       }
 

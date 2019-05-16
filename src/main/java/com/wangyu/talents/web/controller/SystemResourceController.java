@@ -56,7 +56,7 @@ public class SystemResourceController extends BaseController {
       }
 
       List<SystemResourceEntity> roleList = resourceService.findByRoleId(role.getId());
-      if (list != null) {
+      if (roleList != null) {
         list.addAll(roleList);
       }
     }

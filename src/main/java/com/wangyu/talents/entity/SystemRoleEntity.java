@@ -1,9 +1,12 @@
 package com.wangyu.talents.entity;
 
 import com.wangyu.talents.common.base.BaseEntity;
+import com.wangyu.talents.common.enums.StatusEnum;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -20,6 +23,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "sys_role")
+@org.hibernate.annotations.Table(appliesTo = "sys_role", comment = "系统角色表")
 public class SystemRoleEntity extends BaseEntity {
 
   /**
@@ -30,14 +34,21 @@ public class SystemRoleEntity extends BaseEntity {
   /**
    * 角色名
    */
-  @Column(name = "name", nullable = false)
+  @Column(name = "name", length = 32, nullable = false, columnDefinition = "varchar(64) COMMENT '角色名'")
   private String name;
+
+  /**
+   * 描述
+   */
+  @Column(name = "remark", length = 64, columnDefinition = "varchar(64) COMMENT '描述'")
+  private String description;
 
   /**
    * 1:正常  0: 禁用 默认为正常
    */
-  @Column(name = "status", length = 32)
-  private String status = "1";
+  @Enumerated(EnumType.ORDINAL)
+  @Column(name = "status", length = 2, columnDefinition = "int(2) COMMENT '状态 1：正常 0：禁用'")
+  private StatusEnum status = StatusEnum.STATUS_NORMAL;
 
   /**
    * 与用户多对多关联
@@ -55,32 +66,19 @@ public class SystemRoleEntity extends BaseEntity {
       @JoinColumn(name = "role_id")}, inverseJoinColumns = {@JoinColumn(name = "resource_id")})
   private Set<SystemResourceEntity> systemResources;
 
-
   /**
    * 创建人
    */
   @ManyToOne
-  @JoinColumn(name = "creator_id")
+  @JoinColumn(name = "creator_id", columnDefinition = "varchar(36) COMMENT '创建人'")
   private SystemUserEntity creator;
 
   /**
    * 最后一次修改人
    */
   @ManyToOne
-  @JoinColumn(name = "modifier_id")
+  @JoinColumn(name = "modifier_id", columnDefinition = "varchar(36) COMMENT '最后一次修改人'")
   private SystemUserEntity modifier;
-
-  /**
-   * 是否删除 false : 已删除 true :正常
-   */
-  @Column(name = "delete_flag")
-  private Boolean deleteFlag = true;
-
-  /**
-   * 备注
-   */
-  @Column(name = "remark", length = 64)
-  private String remark;
 
   public String getName() {
     return name;
@@ -90,11 +88,11 @@ public class SystemRoleEntity extends BaseEntity {
     this.name = name;
   }
 
-  public String getStatus() {
+  public StatusEnum getStatus() {
     return status;
   }
 
-  public void setStatus(String status) {
+  public void setStatus(StatusEnum status) {
     this.status = status;
   }
 
@@ -122,21 +120,12 @@ public class SystemRoleEntity extends BaseEntity {
     this.modifier = modifier;
   }
 
-  public Boolean getDeleteFlag() {
-    return deleteFlag;
+  public String getDescription() {
+    return description;
   }
 
-  public void setDeleteFlag(Boolean deleteFlag) {
-    this.deleteFlag = deleteFlag;
-  }
-
-
-  public String getRemark() {
-    return remark;
-  }
-
-  public void setRemark(String remark) {
-    this.remark = remark;
+  public void setDescription(String description) {
+    this.description = description;
   }
 
   public Set<SystemResourceEntity> getSystemResources() {

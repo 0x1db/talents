@@ -33,7 +33,7 @@ public class BaseEntity implements Serializable {
    * 创建时间
    */
   @Column(name = "create_date", columnDefinition = "datetime COMMENT '创建时间'")
-  private Date createDate;
+  private Date createDate = new Date();
 
   /**
    * 修改时间

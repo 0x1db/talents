@@ -11,7 +11,7 @@ import java.util.List;
  * @Date 2019/3/9 12:01
  * @Version 1.0
  **/
-public interface SystemRoleService extends BaseService<SystemRoleEntity> {
+public interface SystemRoleService {
 
   /**
    * 根据用户ID查询角色信息

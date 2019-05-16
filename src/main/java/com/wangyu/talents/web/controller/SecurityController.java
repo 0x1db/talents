@@ -4,10 +4,14 @@ import com.wangyu.talents.common.base.BaseController;
 import com.wangyu.talents.common.model.ResponseCode;
 import com.wangyu.talents.common.model.ResponseModel;
 import com.wangyu.talents.entity.SystemUserEntity;
+import com.wangyu.talents.service.SystemUserService;
 import java.security.Principal;
+import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
+import org.checkerframework.checker.units.qual.A;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,6 +27,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/v1/security")
 public class SecurityController extends BaseController {
+
+  @Autowired
+  private SystemUserService systemUserService;
 
   /**
    * 当登陆成功后，默认跳转到这个URL，并且返回登录成功后的用户基本信息
@@ -42,7 +49,7 @@ public class SecurityController extends BaseController {
       return this.buildHttpResultForValidate(ResponseCode._1011, "登录信息已失效，请重新登录");
     }
     //更新登陆时间
-//      systemUserService.updateLoginTime(currentUser.getAccount(), new Date());
+    systemUserService.updateLoginTime(currentUser.getUsername(), new Date());
 
     // 返回登录者账号
     return this.buildHttpResult(currentUser.getUsername());

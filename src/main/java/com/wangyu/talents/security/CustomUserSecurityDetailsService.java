@@ -1,5 +1,6 @@
 package com.wangyu.talents.security;
 
+import com.wangyu.talents.common.enums.StatusEnum;
 import com.wangyu.talents.repository.SystemUserRepository;
 import com.wangyu.talents.entity.SystemRoleEntity;
 import com.wangyu.talents.entity.SystemUserEntity;
@@ -30,7 +31,8 @@ public class CustomUserSecurityDetailsService implements UserDetailsService {
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    SystemUserEntity currentUser = userDao.findByUsernameAndStatus(username, "1");
+    SystemUserEntity currentUser = userDao
+        .findByUsernameAndStatus(username, StatusEnum.STATUS_NORMAL);
     if (currentUser == null) {
       throw new UsernameNotFoundException("未发现指定账号，或账号被禁用");
     }

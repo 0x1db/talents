@@ -12,7 +12,7 @@ import java.util.List;
  * @Date 2019/4/14 17:36
  * @Version 1.0
  **/
-public interface SystemResourceService extends BaseService<SystemResourceEntity> {
+public interface SystemResourceService {
 
   /**
    * 根据权限ID查询

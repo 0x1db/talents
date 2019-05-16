@@ -1,9 +1,8 @@
 package com.wangyu.talents.service.impl;
 
-import com.wangyu.talents.common.base.BaseServiceImpl;
 import com.wangyu.talents.common.enums.StatusEnum;
-import com.wangyu.talents.repository.SystemResourceRepository;
 import com.wangyu.talents.entity.SystemResourceEntity;
+import com.wangyu.talents.repository.SystemResourceRepository;
 import com.wangyu.talents.service.SystemResourceService;
 import java.util.List;
 import org.apache.commons.lang3.Validate;
@@ -18,8 +17,7 @@ import org.springframework.stereotype.Service;
  * @Version 1.0
  **/
 @Service("systemResourceService")
-public class SystemResourceServiceImpl extends BaseServiceImpl<SystemResourceEntity> implements
-    SystemResourceService {
+public class SystemResourceServiceImpl implements SystemResourceService {
 
   @Autowired
   private SystemResourceRepository menuRepository;

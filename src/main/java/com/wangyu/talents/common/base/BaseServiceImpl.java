@@ -17,7 +17,7 @@ public class BaseServiceImpl<T extends BaseEntity> implements BaseService<T> {
   private BaseRepository<T> baseRepository;
 
   @Override
-  public void save(T entity) {
+  public void create(T entity) {
     baseRepository.save(entity);
   }
 
