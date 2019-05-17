@@ -1,8 +1,11 @@
 package com.wangyu.talents.service;
 
-import com.wangyu.talents.common.base.BaseService;
 import com.wangyu.talents.entity.SystemRoleEntity;
+import com.wangyu.talents.entity.SystemUserEntity;
 import java.util.List;
+import java.util.Map;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * 系统角色服务层
@@ -22,4 +25,17 @@ public interface SystemRoleService {
    * 根据资源ID查询
    */
   List<SystemRoleEntity> findByResourceId(String id);
+
+  /**
+   * 条件分页查询
+   */
+  Page<SystemRoleEntity> getPages(Map<String, Object> params, Pageable pageable);
+
+  /**
+   * 启用/启用
+   *
+   * @param userId 用户ID
+   * @param flag 操作标识
+   */
+  void disableOrUnDisable(String userId, Boolean flag, SystemUserEntity currentUser);
 }

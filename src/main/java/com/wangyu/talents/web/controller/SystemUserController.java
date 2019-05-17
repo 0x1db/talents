@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -65,7 +66,7 @@ public class SystemUserController extends BaseController {
       }
     }
     //默认查询状态正常的用户
-    params.put("status", StatusEnum.STATUS_NORMAL);
+    params.put("deleteFlag", true);
 
     Page<SystemUserEntity> pages = userService.findPages(params, pageable);
     return this.buildHttpResult(pages, "roles", "creator", "modifier");
@@ -116,13 +117,18 @@ public class SystemUserController extends BaseController {
   /**
    * 账号启用/禁用
    */
-  @PatchMapping("disableOrUnDisable/{userId}/{flag}")
-  public ResponseModel disableOrUnDisable(@PathVariable("userId") String userId,
-      @PathVariable("flag") Boolean flag) {
+  @PatchMapping("disableOrUnDisable")
+  public ResponseModel disableOrUnDisable(@RequestParam("userId") String userId,
+      @RequestParam("flag") Boolean flag, Principal principal) {
+    SystemUserEntity currentUser = this.verifyLogin(principal);
+    if (currentUser == null) {
+      return this.buildHttpResultForValidate(ResponseCode._1011, "登录信息已失效，请重新登陆");
+    }
+
     if (StringUtils.isEmpty(userId) || flag == null) {
       throw new ServiceException(ResponseCode._1001, "规定的必传项没有传入");
     }
-    userService.disableOrUnDisable(userId, flag);
+    userService.disableOrUnDisable(userId, flag, currentUser);
     return this.buildHttpResult();
   }
 
@@ -137,5 +143,34 @@ public class SystemUserController extends BaseController {
 
     boolean flag = userService.usernameValidateUnique(username);
     return this.buildHttpResult(flag);
+  }
+
+  /**
+   * 查询后台用户详情
+   */
+  @GetMapping("/{userId}")
+  public ResponseModel findById(@PathVariable("userId") String userId) {
+    if (StringUtils.isEmpty(userId)) {
+      return this.buildHttpResultForValidate(ResponseCode._1001, "userId不能为空");
+    }
+    SystemUserEntity systemUserEntity = userService.findById(userId);
+    return this.buildHttpResult(systemUserEntity, "roles", "creator", "modifier");
+  }
+
+  /**
+   * 用户重置密码
+   */
+  @PatchMapping("/resetPassword/{userId}")
+  public ResponseModel resetPassword(@PathVariable("userId") String userId, Principal principal) {
+    SystemUserEntity currentUser = this.verifyLogin(principal);
+    if (currentUser == null) {
+      return this.buildHttpResultForValidate(ResponseCode._1011, "登录信息已失效，请重新登陆");
+    }
+
+    if (StringUtils.isEmpty(userId)) {
+      return this.buildHttpResultForValidate(ResponseCode._1001, "userId不能为空");
+    }
+    String password = userService.resetPassword(userId, currentUser);
+    return this.buildHttpResult(password);
   }
 }

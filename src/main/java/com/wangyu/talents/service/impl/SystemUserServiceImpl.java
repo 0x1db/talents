@@ -4,7 +4,6 @@ import com.wangyu.talents.common.enums.StatusEnum;
 import com.wangyu.talents.common.enums.UserTypeEnum;
 import com.wangyu.talents.common.exception.ServiceException;
 import com.wangyu.talents.common.model.ResponseCode;
-import com.wangyu.talents.common.model.ResponseModel;
 import com.wangyu.talents.entity.SystemUserEntity;
 import com.wangyu.talents.repository.SystemUserRepository;
 import com.wangyu.talents.service.SystemUserService;
@@ -17,6 +16,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,9 +74,9 @@ public class SystemUserServiceImpl implements SystemUserService {
           predicates.add(cb.equal(root.get("type").as(UserTypeEnum.class), type));
         }
 
-        if (params.get("status") != null) {
-          StatusEnum status = StatusEnum.valueOf(params.get("status").toString());
-          predicates.add(cb.equal(root.get("status").as(StatusEnum.class), status));
+        if (params.get("deleteFlag") != null) {
+          Boolean flag = (Boolean) params.get("deleteFlag");
+          predicates.add(cb.equal(root.get("deleteFlag").as(Boolean.class), flag));
         }
         return cb.and(predicates.toArray(new Predicate[predicates.size()]));
       }
@@ -100,7 +100,7 @@ public class SystemUserServiceImpl implements SystemUserService {
     user.setModifiedDate(new Date());
     user.setModifier(currentUser);
     user.setStatus(StatusEnum.STATUS_DISABLED);
-    user.setDeleteFlag(true);
+    user.setDeleteFlag(false);
     //将用户账号添加_bak后缀，防止逻辑删除之后账号验重复的操作出错
     StringBuilder sb = new StringBuilder(user.getUsername());
     sb.append("_bak");
@@ -119,7 +119,10 @@ public class SystemUserServiceImpl implements SystemUserService {
     user.setModifiedDate(new Date());
     user.setModifier(currentUser);
     //对修改的密码加密
-    user.setPassword(passwordEncoder.encodePassword(userEntity.getPassword(), ""));
+    if (!user.getPassword().equals(userEntity.getPassword()) && StringUtils
+        .isNotEmpty(userEntity.getPassword())) {
+      user.setPassword(passwordEncoder.encodePassword(userEntity.getPassword(), ""));
+    }
     user.setNickname(userEntity.getNickname());
     //保存更改
     userRepository.save(user);
@@ -142,11 +145,13 @@ public class SystemUserServiceImpl implements SystemUserService {
   }
 
   @Override
-  public void disableOrUnDisable(String userId, Boolean flag) {
+  public void disableOrUnDisable(String userId, Boolean flag, SystemUserEntity currentUser) {
     Validate.notBlank(userId, "用户ID不能为空");
     SystemUserEntity user = userRepository.findOne(userId);
     Validate.notNull(user, "Id为" + userId + "的对象不存在");
 
+    user.setModifiedDate(new Date());
+    user.setModifier(currentUser);
     if (flag) {
       user.setStatus(StatusEnum.STATUS_NORMAL);
     } else {
@@ -166,6 +171,29 @@ public class SystemUserServiceImpl implements SystemUserService {
     SystemUserEntity userEntity = userRepository.findByUsername(username);
     userEntity.setLastLoginTime(date);
     userRepository.save(userEntity);
+  }
+
+  @Override
+  public SystemUserEntity findById(String userId) {
+    Validate.notBlank(userId, "用户Id不能为空");
+    return userRepository.findOne(userId);
+  }
+
+  @Override
+  public String resetPassword(String userId, SystemUserEntity currentUser) {
+    Validate.notBlank(userId, "userId不能为空");
+    SystemUserEntity user = userRepository.findOne(userId);
+    if (user == null) {
+      throw new ServiceException(ResponseCode._1004, "未查询到userId为" + userId + "的用户");
+    }
+
+    //生成六位随机密码
+    String newPassword = RandomStringUtils.randomNumeric(6);
+    user.setModifier(currentUser);
+    user.setModifiedDate(new Date());
+    user.setPassword(passwordEncoder.encodePassword(newPassword, ""));
+    userRepository.save(user);
+    return newPassword;
   }
 
   /**

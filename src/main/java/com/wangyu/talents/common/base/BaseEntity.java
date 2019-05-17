@@ -45,7 +45,7 @@ public class BaseEntity implements Serializable {
    * 删除标识 false : 已删除 true :正常
    */
   @Column(name = "delete_flag", columnDefinition = "bit COMMENT '删除标识 0:已删除，1：正常'")
-  private Boolean deleteFlag;
+  private Boolean deleteFlag = true;
 
   public String getId() {
     return id;

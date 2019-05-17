@@ -26,4 +26,5 @@ public interface SystemUserRepository extends BaseRepository<SystemUserEntity> {
    * 根据账号查询用户
    */
   SystemUserEntity findByUsername(String username);
+
 }

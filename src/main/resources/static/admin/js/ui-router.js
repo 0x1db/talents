@@ -76,6 +76,21 @@ angular.module('talents')
       }
     }
   })
+  .state('me.editUser', {
+    url: 'systemS/user/editUser/:userId',
+    views: {
+      'contents@me': {
+        templateUrl: 'views/user/editUser.html',
+        resolve: {
+          loadPlugin: ['$ocLazyLoad', function ($ocLazyLoad) {
+            return $ocLazyLoad
+            .load(['views/user/editUser.js', 'views/user/editUser.css'])
+          }]
+        },
+        controller: 'editUserCtrl'
+      }
+    }
+  })
   .state('me.role', {
     url: 'systemS/role',
     views: {
@@ -88,6 +103,21 @@ angular.module('talents')
           }]
         },
         controller: 'roleCtrl'
+      }
+    }
+  })
+  .state('me.addRole', {
+    url: 'systemS/role/addRole',
+    views: {
+      'contents@me': {
+        templateUrl: 'views/role/addRole.html',
+        resolve: {
+          loadPlugin: ['$ocLazyLoad', function ($ocLazyLoad) {
+            return $ocLazyLoad
+            .load(['views/role/addRole.js', 'views/role/addRole.css'])
+          }]
+        },
+        controller: 'addRoleCtrl'
       }
     }
   })

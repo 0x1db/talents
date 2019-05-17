@@ -52,8 +52,9 @@ public interface SystemUserService {
    *
    * @param userId 用户ID
    * @param flag 启用/禁用标识
+   * @param currentUser 操作人
    */
-  void disableOrUnDisable(String userId, Boolean flag);
+  void disableOrUnDisable(String userId, Boolean flag, SystemUserEntity currentUser);
 
   /**
    * 用户账号唯一性校验
@@ -69,4 +70,14 @@ public interface SystemUserService {
    * @param date 登录时间
    */
   void updateLoginTime(String username, Date date);
+
+  /**
+   * 根据Id查询用户
+   */
+  SystemUserEntity findById(String userId);
+
+  /**
+   * 重置密码
+   */
+  String resetPassword(String userId, SystemUserEntity currentUser);
 }

@@ -1,67 +1,47 @@
-angular.module('ylmf.editAgent', [])
-.controller('editAgentCtrl',
+angular.module('talents.editUser', [])
+.controller('editUserCtrl',
     function ($scope, $http, mainUrl, $state, $stateParams) {
 
-      $scope.agentId = $stateParams.agentId;
+      $scope.userId = $stateParams.userId;
 
       //修改用户信息时的参数
-      $scope.agentInfo = {
-        id: $scope.agentId,
-        name: '',
+      $scope.userInfo = {
+        id: $scope.userId,
+        nickname: '',
         password: '',
-        community: {
-          id: ''
-        }
       }
 
       console.log($scope.agentId);
 
       //获取用户信息
-      $scope.getAgentInfo = function () {
+      $scope.getUserInfo = function () {
         $http({
           method: 'get',
-          url: mainUrl + '/v1/agents/' + $scope.agentId + '/1'
+          url: mainUrl + '/v1/user/' + $scope.userId
         }).then(function (res) {
-          console.log('用户信息', res.data);
-          var data = res.data.data;
-          $scope.agentInfo.name = data.name;
-          if (data.community.id != '') {
-            $scope.agentInfo.community.id = data.community.id;
+          if (res.data.responseCode == '_200') {
+            console.log('用户信息', res.data);
+            var data = res.data.data;
+            $scope.userInfo.nickname = data.nickname;
+            console.log($scope.userInfo);
           }
-          console.log($scope.agentInfo);
         }, function (err) {
-          layer.msg(err.data);
+          layer.msg(err.data.message);
         })
       }
       //调用一次获取用户信息
-      $scope.getAgentInfo();
-
-      $scope.getCommunity = function () {
-        $http({
-          method: "GET",
-          url: mainUrl + '/v1/community/getListTree',
-        }).then(function (res) {
-          console.log('获取所有小区', res.data.data);
-          console.log(res);
-          $scope.dataListCommunity = res.data.data;
-        }, function (error) {
-          layer.msg(error.data.message);
-        });
-      }
-      //执行一次获取所有的小区
-      $scope.getCommunity();
+      $scope.getUserInfo();
 
       $scope.submit = function () {
-
         $http({
           method: 'patch',
-          url: mainUrl + '/v1/agents',
-          data: $scope.agentInfo
+          url: mainUrl + '/v1/user/',
+          data: $scope.userInfo
         }).then(function (res) {
           console.log(res);
-          if (res.status === 200) {
+          if (res.data.responseCode == '_200') {
             layer.msg('修改成功');
-            $state.go('me.agent');
+            $state.go('me.user');
           }
         }, function (err) {
           console.log(err);

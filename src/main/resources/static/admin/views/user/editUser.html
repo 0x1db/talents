@@ -15,56 +15,41 @@
       <h3 class="modal-title">修改用户信息</h3>
     </div>
     <div class="modal-body ng-scope">
-      <form class="form-horizontal" name="agentForm" style="">
+      <form class="form-horizontal" name="userForm" style="">
         <div class="form-group">
-          <label class="col-md-2 control-label"><span class="require_span">*</span>用户名称: </label>
+          <label class="col-md-2 control-label"><span class="require_span">*</span>用户昵称: </label>
           <div class="col-md-9"
-               ng-class="{ 'has-error' : agentForm.name.$invalid && (!agentForm.name.$pristine || agentForm.name.$touched) }">
-            <input type="text" class="form-control" placeholder="请输入用户名字" name="name"
-                   ng-model="agentInfo.name" ng-minlength="2" ng-maxlength="20" required=""
+               ng-class="{ 'has-error' : userForm.nickname.$invalid && (!userForm.nickname.$pristine || userForm.nickname.$touched) }">
+            <input type="text" class="form-control" placeholder="请输入用户昵称" name="nickname"
+                   ng-model="userInfo.nickname" ng-minlength="2" ng-maxlength="20" required=""
                    style="">
           </div>
           <div class="col-md-9 col-md-offset-2 form-tips"
-               ng-if="!agentForm.name.$pristine || agentForm.name.$touched"
-               ng-messages="agentForm.name.$error" role="alert">
-            <ng-messages-include src="views/agent/errors.html"></ng-messages-include>
-
+               ng-if="!userForm.nickname.$pristine || userForm.nickname.$touched"
+               ng-messages="userForm.nickname.$error" role="alert">
+            <ng-messages-include src="views/user/errors.html"></ng-messages-include>
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-2 control-label">密码: </label>
           <div class="col-md-9"
-               ng-class="{ 'has-error' : agentForm.password.$invalid && (!agentForm.password.$pristine || agentForm.password.$touched) }">
+               ng-class="{ 'has-error' : userForm.password.$invalid && (!userForm.password.$pristine || userForm.password.$touched) }">
             <input type="password" class="form-control" placeholder="默认为原密码" name="password"
-                   ng-model="agentInfo.password" ng-pattern="/^[a-zA-Z\d]{6,20}$/" style="">
+                   ng-model="userInfo.password" ng-pattern="/^[a-zA-Z\d]{6,20}$/" style="">
           </div>
           <div class="col-md-9 col-md-offset-2 form-tips"
-               ng-if="!agentForm.password.$pristine || agentForm.password.$touched"
-               ng-messages="agentForm.password.$error" role="alert">
+               ng-if="!userForm.password.$pristine || userForm.password.$touched"
+               ng-messages="userForm.password.$error" role="alert">
             <div ng-message="pattern">密码长度必须为6-12个字符，大小写英文字符或数字</div>
-          </div>
-        </div>
-        <div class="form-group"
-             ng-class="{ 'has-error' :agentForm.community.$invalid && agentForm.community.$touched }">
-          <label class="col-md-2 control-label">(物管人员)所属小区: </label>
-          <div class="formControls col-xs-8 col-sm-9">
-            <div class="selected_address">
-              <select ui-select2="vm.option" ng-model="agentInfo.community.id"
-                      style="width: 100%">
-                <option ng-repeat="x in dataListCommunity"
-                        ng-selected="agentInfo.community.id == x.id" value="{{x.id}}">{{x.name}}
-                </option>
-              </select>
-            </div>
           </div>
         </div>
       </form>
     </div>
     <div class="modal-footer ng-scope">
-      <button class="btn btn-primary" ng-disabled="agentForm.$invalid" type="button"
+      <button class="btn btn-primary" ng-disabled="userForm.$invalid" type="button"
               ng-click="submit()">提交
       </button>
-      <button class="btn btn-warning" type="button" ui-sref="me.agent">取消</button>
+      <button class="btn btn-warning" type="button" ui-sref="me.user">取消</button>
     </div>
   </div>
 </div>

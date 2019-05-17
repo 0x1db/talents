@@ -82,17 +82,19 @@
                   <span ng-if="x.status == 'STATUS_DISABLED'" class="require_span">禁用</span>
                 </td>
                 <td class="ng-binding">
-                  <button ng-if="x.status != STATUS_DISABLED" class="btn btn-warning">修改</button>
-                  <button ng-if="x.status != STATUS_DISABLED"
-                          ng-click="notAgent(x.id, false, $index)" class="btn btn-danger">禁用
+                  <button ng-if="x.status != 'STATUS_DISABLED'"
+                          ui-sref="me.editUser({userId: x.id})" class="btn btn-warning">修改
                   </button>
-                  <button ng-if="x.status == STATUS_DISABLED"
-                          ng-click="notAgent(x.id, true, $index)" class="btn btn-success">启用
+                  <button ng-if="x.status != 'STATUS_DISABLED'"
+                          ng-click="notUser(x.id, false, $index)" class="btn btn-danger">禁用
                   </button>
-                  <button ng-if="x.status != STATUS_DISABLED"
-                          ui-sref="me.editAgent({agentId: x.id})" class="btn btn-success">设置角色
+                  <button ng-if="x.status == 'STATUS_DISABLED'"
+                          ng-click="notUser(x.id, true, $index)" class="btn btn-success">启用
                   </button>
-                  <button ng-if="x.status != STATUS_DISABLED" ng-click="resetPassword(x.id)"
+                  <button ng-if="x.status != 'STATUS_DISABLED'"
+                          ui-sref="me.editUser({userId: x.id})" class="btn btn-success">设置角色
+                  </button>
+                  <button ng-if="x.status != 'STATUS_DISABLED'" ng-click="resetPassword(x.id)"
                           class="btn btn-info">重置密码
                   </button>
                   <button class="btn btn-danger" ng-click="deleteUser(x.id)">删除</button>

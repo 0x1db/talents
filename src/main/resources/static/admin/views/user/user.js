@@ -74,7 +74,7 @@ angular.module('talents.agent', ['ui.bootstrap'])
 
     function disableOrUnDisable() {
       $http({
-        method: 'post',
+        method: 'PATCH',
         url: mainUrl + '/v1/user/disableOrUnDisable',
         params: {
           userId: userId,
@@ -108,11 +108,11 @@ angular.module('talents.agent', ['ui.bootstrap'])
   }
 
   //重置密码
-  $scope.resetPassword = function (agentId) {
+  $scope.resetPassword = function (userId) {
     layer.confirm('是否重置密码?', {icon: 3, title: '提示'}, function (index) {
       $http({
         method: 'PATCH',
-        url: mainUrl + '/v1/user/reset/' + agentId
+        url: mainUrl + '/v1/user/resetPassword/' + userId
       }).then(function (res) {
         if (res.data.data != '' && res.data.data != null) {
           layer.confirm(res.data.data, {icon: 1, title: '该密码只显示一次'},

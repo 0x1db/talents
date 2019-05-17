@@ -1,0 +1,63 @@
+<nav class="breadcrumb"><i class="fa fa-home"></i> 首页 <span class="c-gray en">&gt;</span> 角色权限管理
+  <span class="c-gray en">&gt;</span> 角色管理 <span class="c-gray en">&gt;</span>添加角色
+</nav>
+<nav class="breadcrumb"><a ui-sref="me.role"><i class="fa fa-hand-o-left"></i>&nbsp;&nbsp;&nbsp;返&nbsp;回</a>
+</nav>
+<div class="add-role-page-container">
+  <form class="form form-horizontal" id="form-admin-role-add" name="roleForm">
+    <div class="row cl">
+      <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>角色名称：</label>
+      <div class="formControls col-xs-8 col-sm-9"
+           ng-class="{ 'has-error' : roleForm.roleName.$invalid && (!roleForm.roleName.$pristine || roleForm.roleName.$touched) }">
+        <input type="text" class="form-control input-text" value="" placeholder="请输入角色名称"
+               id="roleName" ng-minlength="4" ng-maxlength="20" role-name-validate="" required
+               name="roleName"
+               ng-model="roleEntity.name">
+      </div>
+      <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3 form-tips"
+           ng-if="!roleForm.roleName.$pristine || roleForm.roleName.$touched"
+           ng-messages="roleForm.roleName.$error" role="alert">
+        <div ng-message="role-name-validate">角色已存在,请重新输入</div>
+        <ng-messages-include src="views/role/errors.html"></ng-messages-include>
+      </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-xs-4 col-sm-3">备注：</label>
+      <div class="formControls col-xs-8 col-sm-9">
+        <input type="text" class="form-control input-text" value="" placeholder="" id="" name=""
+               ng-model="roleEntity.comment">
+      </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-xs-4 col-sm-3">角色功能：</label>
+      <div class="formControls col-xs-8 col-sm-9">
+        <dl class="permission-list" ng-repeat="x in groups">
+          <dt>
+            <label>
+              <input type="checkbox" value="" name="user-Character-0" id="user-Character-0"
+                     ng-model="x.hasChecked" ng-click="checkAll(x.id, x.hasChecked)">
+              {{x.id}}</label>
+          </dt>
+          <dd>
+            <dl class="cl permission-list2">
+              <dd>
+                <label class="m-tb-10 mr10 text-over"
+                       ng-repeat="c in competences | filter:{flag: x.id + 'FLAG'} "
+                       style="display: block" title="{{c.resource}}">
+                  <input type="checkbox" ng-model="c.hasChecked" ng-click="singleClick(c.resource)">
+                  {{c.comment}}&nbsp;&nbsp;&nbsp;({{c.resource}})</label>
+              </dd>
+            </dl>
+          </dd>
+        </dl>
+      </div>
+    </div>
+    <div class="row cl">
+      <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+        <button ng-disabled="roleForm.$invalid" class="btn btn-success radius" id="admin-role-save"
+                name="admin-role-save" ng-click="registerRole()"><i class="icon-ok"></i> 确定
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
