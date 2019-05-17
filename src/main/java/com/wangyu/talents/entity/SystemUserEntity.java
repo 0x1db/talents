@@ -14,7 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import org.checkerframework.checker.units.qual.C;
 
 /**
  * 系统用户实体
@@ -65,12 +64,11 @@ public class SystemUserEntity extends BaseEntity {
   private StatusEnum status = StatusEnum.STATUS_NORMAL;
 
   /**
-   * 状态 0：禁用 1：正常
+   * 用户类型 1:后台用户 2：前端用户
    */
   @Enumerated(EnumType.ORDINAL)
   @Column(name = "type", length = 2, columnDefinition = "int(2) COMMENT '用户类型 1：后台用户 2：前端用户'")
   private UserTypeEnum type;
-
 
   /**
    * 与对象多对多关联

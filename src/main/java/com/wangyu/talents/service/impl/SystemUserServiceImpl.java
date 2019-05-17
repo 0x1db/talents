@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.apache.commons.lang3.StringUtils;
@@ -51,6 +52,11 @@ public class SystemUserServiceImpl implements SystemUserService {
       public Predicate toPredicate(Root<SystemUserEntity> root, CriteriaQuery<?> criteriaQuery,
           CriteriaBuilder cb) {
         List<Predicate> predicates = new ArrayList<Predicate>();
+        Class<?> clazz = criteriaQuery.getResultType();
+        if (clazz.equals(SystemUserEntity.class)) {
+          root.fetch("creator", JoinType.LEFT);
+          root.fetch("modifier", JoinType.LEFT);
+        }
         if (params.get("username") != null) {
           String username = String.valueOf(params.get("username"));
           predicates.add(cb.like(root.get("username").as(String.class),
@@ -66,6 +72,11 @@ public class SystemUserServiceImpl implements SystemUserService {
         if (params.get("type") != null) {
           UserTypeEnum type = UserTypeEnum.valueOf(params.get("type").toString());
           predicates.add(cb.equal(root.get("type").as(UserTypeEnum.class), type));
+        }
+
+        if (params.get("status") != null) {
+          StatusEnum status = StatusEnum.valueOf(params.get("status").toString());
+          predicates.add(cb.equal(root.get("status").as(StatusEnum.class), status));
         }
         return cb.and(predicates.toArray(new Predicate[predicates.size()]));
       }

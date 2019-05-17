@@ -63,11 +63,9 @@
               <tr class="text-c">
                 <th>账号</th>
                 <th>用户名称</th>
-                <th>注册时间</th>
-                <th>创建人</th>
+                <th>创建时间</th>
                 <th>修改时间</th>
-                <th>修改人</th>
-                <th>登录时间</th>
+                <th>最后登录时间</th>
                 <th>状态</th>
                 <th>操作</th>
               </tr>
@@ -77,9 +75,7 @@
                 <td class="ng-binding">{{x.username}}</td>
                 <td class="ng-binding">{{x.nickname}}</td>
                 <td class="ng-binding">{{x.createDate | date:"yyyy-MM-dd HH:mm:ss"}}</td>
-                <td class="ng-binding">{{x.creator.name}}</td>
                 <td class="ng-binding">{{x.modifiedDate | date:"yyyy-MM-dd HH:mm:ss"}}</td>
-                <td class="ng-binding">{{x.modifier.name}}</td>
                 <td class="ng-binding">{{x.lastLoginTime | date:"yyyy-MM-dd HH:mm:ss"}}</td>
                 <td class="ng-binding">
                   <span ng-if="x.status == 'STATUS_NORMAL'">正常</span>

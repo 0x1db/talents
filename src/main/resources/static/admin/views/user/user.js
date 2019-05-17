@@ -107,7 +107,7 @@ angular.module('talents.agent', ['ui.bootstrap'])
     }
   }
 
-  //删除密码
+  //重置密码
   $scope.resetPassword = function (agentId) {
     layer.confirm('是否重置密码?', {icon: 3, title: '提示'}, function (index) {
       $http({
@@ -129,7 +129,7 @@ angular.module('talents.agent', ['ui.bootstrap'])
       }, function (err) {
         console.log(err);
         layer.msg(err.data);
-      })
+      });
       layer.close(index);
     })
   }
@@ -148,7 +148,8 @@ angular.module('talents.agent', ['ui.bootstrap'])
         }
       }, function (err) {
         layer.msg(err.data);
-      })
+      });
+      layer.close(index);
     })
   }
 });

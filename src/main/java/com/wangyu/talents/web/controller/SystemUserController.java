@@ -2,6 +2,7 @@ package com.wangyu.talents.web.controller;
 
 import com.google.common.collect.Maps;
 import com.wangyu.talents.common.base.BaseController;
+import com.wangyu.talents.common.enums.StatusEnum;
 import com.wangyu.talents.common.enums.UserTypeEnum;
 import com.wangyu.talents.common.exception.ServiceException;
 import com.wangyu.talents.common.model.ResponseCode;
@@ -50,7 +51,7 @@ public class SystemUserController extends BaseController {
     //封装分页条件
     Map<String, Object> params = Maps.newHashMap();
     //用户昵称
-    if (StringUtils.isNotEmpty(username)) {
+    if (StringUtils.isNotEmpty(nickname)) {
       params.put("nickname", nickname);
     }
     //用户账号
@@ -63,9 +64,11 @@ public class SystemUserController extends BaseController {
         params.put("type", UserTypeEnum.USER_ADMIN);
       }
     }
+    //默认查询状态正常的用户
+    params.put("status", StatusEnum.STATUS_NORMAL);
 
     Page<SystemUserEntity> pages = userService.findPages(params, pageable);
-    return this.buildHttpResult(pages, "roles");
+    return this.buildHttpResult(pages, "roles", "creator", "modifier");
   }
 
   /**
