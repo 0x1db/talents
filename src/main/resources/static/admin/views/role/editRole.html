@@ -1,0 +1,46 @@
+<nav class="breadcrumb">
+  <i class="fa fa-home"></i> 首页 <span class="c-gray en">&gt;</span>系统管理 <span
+    class="c-gray en">&gt;</span> 角色管理 <span class="c-gray en">&gt;</span>
+  修改角色
+</nav>
+<nav class="breadcrumb">
+  <a ui-sref="me.role"><i class="fa fa-hand-o-left"></i>&nbsp;&nbsp;&nbsp;返&nbsp;回</a>
+</nav>
+<div class="add-role-page-container">
+  <form class="form form-horizontal" id="form-admin-role-add"
+        name="roleForm">
+    <div class="row cl">
+      <label class="form-label col-xs-4 col-sm-3"><span
+          class="c-red">*</span>角色名称：</label>
+      <div class="formControls col-xs-8 col-sm-9"
+           ng-class="{ 'has-error' : roleForm.roleName.$invalid && !roleForm.roleName.$pristine }">
+        <input type="text" class="form-control input-text" value=""
+               placeholder="" id="roleName" name="roleName" readonly
+               ng-model="roleInfo.name">
+      </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-xs-4 col-sm-3">备注：</label>
+      <div class="formControls col-xs-8 col-sm-9">
+        <input type="text" class="form-control input-text" value=""
+               placeholder="" id="" name="" ng-model="roleInfo.comment">
+      </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-xs-4 col-sm-3">角色功能：</label>
+      <div class="formControls col-xs-8 col-sm-9">
+        <ul id="treeDemo" class="ztree"></ul>
+      </div>
+    </div>
+    <div class="row cl">
+      <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+        <button class="btn btn-success radius" id="admin-role-save"
+                name="admin-role-save" ng-disabled="roleForm.$invalid"
+                ng-click="modifyRole()">
+          <i class="icon-ok"></i> 确定
+        </button>
+      </div>
+    </div>
+
+  </form>
+</div>

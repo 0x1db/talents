@@ -1,5 +1,6 @@
 package com.wangyu.talents.service;
 
+import com.wangyu.talents.entity.SystemResourceEntity;
 import com.wangyu.talents.entity.SystemRoleEntity;
 import com.wangyu.talents.entity.SystemUserEntity;
 import java.util.List;
@@ -38,4 +39,11 @@ public interface SystemRoleService {
    * @param flag 操作标识
    */
   void disableOrUnDisable(String userId, Boolean flag, SystemUserEntity currentUser);
+
+  /**
+   * 根据Id查询角色详情
+   *
+   * @param roleId 角色ID
+   */
+  SystemRoleEntity findById(String roleId);
 }

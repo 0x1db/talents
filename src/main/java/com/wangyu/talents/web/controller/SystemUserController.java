@@ -49,6 +49,11 @@ public class SystemUserController extends BaseController {
       @PageableDefault(sort = {"modifiedDate"}, direction = Direction.DESC)
           Pageable pageable,
       Principal principal) {
+    SystemUserEntity currentUser = this.verifyLogin(principal);
+    if (currentUser == null) {
+      return this.buildHttpResultForValidate(ResponseCode._1011, "登录信息已失效，请重新登录");
+    }
+
     //封装分页条件
     Map<String, Object> params = Maps.newHashMap();
     //用户昵称

@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.wangyu.talents.common.enums.StatusEnum;
 import com.wangyu.talents.common.exception.ServiceException;
 import com.wangyu.talents.common.model.ResponseCode;
+import com.wangyu.talents.entity.SystemResourceEntity;
 import com.wangyu.talents.entity.SystemRoleEntity;
 import com.wangyu.talents.entity.SystemUserEntity;
 import com.wangyu.talents.repository.SystemRoleRepository;
@@ -70,6 +71,7 @@ public class SystemRoleServiceImpl implements SystemRoleService {
           root.fetch("modifier", JoinType.LEFT);
         }
         List<Predicate> predicates = new ArrayList<Predicate>();
+
         // 查询角色名称
         if (params.get("roleName") != null) {
           predicates.add(cb.like(root.get("name").as(String.class),
@@ -79,11 +81,10 @@ public class SystemRoleServiceImpl implements SystemRoleService {
         // 查询状态
         if (params.get("status") != null) {
           StatusEnum status = StatusEnum.valueOf(params.get("status").toString());
-          predicates.add(cb.equal(root.get("status").as(Integer.class), status));
+          predicates.add(cb.equal(root.get("status").as(StatusEnum.class), status));
         }
-        // 遍历查询条件，查询语句
-        query.where(predicates.toArray(new Predicate[predicates.size()]));
-        return null;
+
+        return cb.and(predicates.toArray(new Predicate[predicates.size()]));
       }
     }, pageable);
     return list;
@@ -106,5 +107,11 @@ public class SystemRoleServiceImpl implements SystemRoleService {
       roleEntity.setStatus(StatusEnum.STATUS_DISABLED);
     }
     roleRepository.save(roleEntity);
+  }
+
+  @Override
+  public SystemRoleEntity findById(String roleId) {
+    Validate.notBlank(roleId, "角色ID不能为空");
+    return roleRepository.findOne(roleId);
   }
 }

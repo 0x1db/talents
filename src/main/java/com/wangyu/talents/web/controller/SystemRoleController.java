@@ -6,6 +6,7 @@ import com.wangyu.talents.common.enums.StatusEnum;
 import com.wangyu.talents.common.exception.ServiceException;
 import com.wangyu.talents.common.model.ResponseCode;
 import com.wangyu.talents.common.model.ResponseModel;
+import com.wangyu.talents.entity.SystemResourceEntity;
 import com.wangyu.talents.entity.SystemRoleEntity;
 import com.wangyu.talents.entity.SystemUserEntity;
 import com.wangyu.talents.service.SystemRoleService;
@@ -19,6 +20,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -78,5 +80,17 @@ public class SystemRoleController extends BaseController {
     }
     roleService.disableOrUnDisable(userId, flag, currentUser);
     return this.buildHttpResult();
+  }
+
+  /**
+   * 查询角色详情
+   */
+  @GetMapping("/{roleId}")
+  public ResponseModel findRolesDetail(@PathVariable("roleId") String roleId) {
+    if (StringUtils.isEmpty(roleId)) {
+      return this.buildHttpResultForValidate(ResponseCode._1001, "参数不能为空");
+    }
+    SystemRoleEntity roleEntity = roleService.findById(roleId);
+    return this.buildHttpResult(roleEntity, "users", "creator", "modifier");
   }
 }

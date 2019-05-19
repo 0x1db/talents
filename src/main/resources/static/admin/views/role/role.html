@@ -87,7 +87,7 @@
                 <td class="nowrap">{{x.description}}</td>
                 <td class="f-14">
                   <button ng-show="x.status == 'STATUS_NORMAL'" class="btn btn-warning"
-                          ui-sref="me.modifyRole({roleId:x.id})">编辑
+                          ui-sref="me.editRole({roleId:x.id})">编辑
                   </button>
                   <button ng-show="x.status == 'STATUS_NORMAL'" class="btn btn-danger"
                           ng-click="notRole(x.id, $index)">禁用

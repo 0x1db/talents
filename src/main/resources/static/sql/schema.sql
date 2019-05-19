@@ -1,0 +1,10 @@
+INSERT INTO `sys_resource` VALUES ('349d616c-8db4-4e4f-8c36-3dcf33603f19', '2019-05-18 21:51:36', b'1', NULL, '角色管理', 'GET', '/v1/role/getPages', 1, '1', NULL, 1, '7490c7aa-2a87-4cc9-8b56-fc064ea5c7a1');
+INSERT INTO `sys_resource` VALUES ('367ecc1f-fb55-45d5-af64-8b376c4a434c', '2019-05-18 21:46:20', b'1', NULL, '后台用户信息', 'POST', '/v1/user/register', 1, '1', NULL, 2, '650c3a97-08af-400d-88cd-41dec0a005e8');
+INSERT INTO `sys_resource` VALUES ('41360d32-bde4-4e28-831e-0e48a7dc66e6', '2019-05-18 21:47:04', b'1', NULL, '后台用户修改', 'PATCH', '/v1/user/', 1, '1', NULL, 2, '650c3a97-08af-400d-88cd-41dec0a005e8');
+INSERT INTO `sys_resource` VALUES ('44b27ada-3bd6-4b8f-b9b7-e06da03e3bbf', '2019-05-18 21:52:08', b'1', NULL, '资源管理', 'GET', '/v1/resource/getPages', 1, '1', NULL, 1, '7490c7aa-2a87-4cc9-8b56-fc064ea5c7a1');
+INSERT INTO `sys_resource` VALUES ('650c3a97-08af-400d-88cd-41dec0a005e8', '2019-05-18 19:37:14', b'1', NULL, '后台用户管理', 'GET', '/v1/user/getPages', 1, '1', NULL, 1, '7490c7aa-2a87-4cc9-8b56-fc064ea5c7a1');
+INSERT INTO `sys_resource` VALUES ('68444178-7491-4ac0-bcbe-49e7d9b5e839', '2019-05-18 21:48:20', b'1', NULL, '后台用户启用/禁用', 'PATCH', '/v1/user/disableOrUnDisable', 1, '1', NULL, 2, '650c3a97-08af-400d-88cd-41dec0a005e8');
+INSERT INTO `sys_resource` VALUES ('7490c7aa-2a87-4cc9-8b56-fc064ea5c7a1', '2019-05-18 18:11:06', b'1', NULL, '系统管理', 'GET', '/v1/system/', 1, '1', NULL, 0, NULL);
+INSERT INTO `sys_resource` VALUES ('aee7f0b3-ae61-4922-bfa5-c458bf60f727', '2019-05-18 21:51:01', b'1', NULL, '后台用户删除', 'DELETE', '/v1/user/', 1, '1', NULL, 2, '650c3a97-08af-400d-88cd-41dec0a005e8');
+INSERT INTO `sys_resource` VALUES ('b3618a27-044d-43d9-9c39-a194f72ed71b', '2019-05-18 21:40:39', b'1', NULL, '组织机构管理', 'GET', '/v1/dept/', 1, '1', NULL, 0, NULL);
+INSERT INTO `sys_resource` VALUES ('cdc0e0c1-c558-4807-a484-3d6ce2ff3c4b', '2019-05-18 22:41:03', b'1', NULL, '新增角色', 'POST', '/v1/role/', 1, '1', NULL, 2, '349d616c-8db4-4e4f-8c36-3dcf33603f19');

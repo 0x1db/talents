@@ -1,6 +1,7 @@
 package com.wangyu.talents.entity;
 
 import com.wangyu.talents.common.base.BaseEntity;
+import com.wangyu.talents.common.enums.ResourceTypeEnum;
 import com.wangyu.talents.common.enums.StatusEnum;
 import java.util.Set;
 import javax.persistence.Column;
@@ -11,6 +12,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -40,7 +42,7 @@ public class SystemResourceEntity extends BaseEntity {
   private String methods;
 
   /**
-   * 状态 1正常, 0禁用（枚举）
+   * 状态 1：正常, 0禁用（枚举）
    **/
   @Enumerated(EnumType.ORDINAL)
   @Column(name = "status", nullable = false, columnDefinition = "int(2) COMMENT '状态 1：正常 0:禁用'")
@@ -71,6 +73,20 @@ public class SystemResourceEntity extends BaseEntity {
   @ManyToOne
   @JoinColumn(name = "modifier_id", columnDefinition = "varchar(36) COMMENT '修改人ID'")
   private SystemUserEntity modifier;
+
+  /**
+   * 资源类型 0：导航组件 1：菜单 2：按钮(枚举)
+   */
+  @Enumerated(EnumType.ORDINAL)
+  @Column(name = "type", length = 2, columnDefinition = "int(2) COMMENT '资源类型'")
+  private ResourceTypeEnum type;
+
+  /**
+   * 父级资源
+   */
+  @OneToOne
+  @JoinColumn(name = "parent_id", columnDefinition = "varchar(36) COMMENT '父级ID'")
+  private SystemResourceEntity parent;
 
   public String getResource() {
     return resource;
@@ -126,6 +142,22 @@ public class SystemResourceEntity extends BaseEntity {
 
   public void setModifier(SystemUserEntity modifier) {
     this.modifier = modifier;
+  }
+
+  public ResourceTypeEnum getType() {
+    return type;
+  }
+
+  public void setType(ResourceTypeEnum type) {
+    this.type = type;
+  }
+
+  public SystemResourceEntity getParent() {
+    return parent;
+  }
+
+  public void setParent(SystemResourceEntity parent) {
+    this.parent = parent;
   }
 
   @Override

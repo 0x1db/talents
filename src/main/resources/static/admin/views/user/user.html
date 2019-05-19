@@ -82,22 +82,28 @@
                   <span ng-if="x.status == 'STATUS_DISABLED'" class="require_span">禁用</span>
                 </td>
                 <td class="ng-binding">
-                  <button ng-if="x.status != 'STATUS_DISABLED'"
+                  <button ng-if="x.status != 'STATUS_DISABLED'" has-permission="/v1/user/&PATCH"
                           ui-sref="me.editUser({userId: x.id})" class="btn btn-warning">修改
                   </button>
                   <button ng-if="x.status != 'STATUS_DISABLED'"
+                          has-permission="/v1/user/disableOrUnDisable&PATCH"
                           ng-click="notUser(x.id, false, $index)" class="btn btn-danger">禁用
                   </button>
                   <button ng-if="x.status == 'STATUS_DISABLED'"
+                          has-permission="/v1/user/disableOrUnDisable&PATCH"
                           ng-click="notUser(x.id, true, $index)" class="btn btn-success">启用
                   </button>
                   <button ng-if="x.status != 'STATUS_DISABLED'"
+                          has-permission="/v1/user/setRoles&PATCH"
                           ui-sref="me.editUser({userId: x.id})" class="btn btn-success">设置角色
                   </button>
                   <button ng-if="x.status != 'STATUS_DISABLED'" ng-click="resetPassword(x.id)"
+                          has-permission="/v1/user/resetPassword/&PATCH"
                           class="btn btn-info">重置密码
                   </button>
-                  <button class="btn btn-danger" ng-click="deleteUser(x.id)">删除</button>
+                  <button class="btn btn-danger" ng-click="deleteUser(x.id)"
+                          has-permission="/v1/user/&DELETE">删除
+                  </button>
               </tr>
               </tbody>
             </table>

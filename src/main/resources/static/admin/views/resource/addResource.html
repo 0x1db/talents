@@ -1,0 +1,83 @@
+<nav class="breadcrumb"><i class="fa fa-home"></i> 首页 <span class="c-gray en">&gt;</span> 系统管理 <span
+    class="c-gray en">&gt;</span> 资源管理 <span class="c-gray en">&gt;</span>添加资源
+</nav>
+<nav class="breadcrumb"><a ui-sref="me.competence"><i class="fa fa-hand-o-left"></i>&nbsp;&nbsp;&nbsp;返&nbsp;回</a>
+</nav>
+<div class="add-role-page-container">
+  <form class="form form-horizontal" id="form-admin-role-add" name="resourceForm">
+    <div class="row cl">
+      <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>资源名称：</label>
+      <div class="formControls col-xs-8 col-sm-9"
+           ng-class="{ 'has-error' : resourceForm.roleName.$invalid && !resourceForm.roleName.$pristine }">
+        <input type="text" class="form-control input-text" value="" placeholder="请输入名称"
+               id="roleName" name="roleName" ng-minlength="4" ng-maxlength="20" required
+               ng-model="resourceEntity.description">
+      </div>
+      <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3 form-tips"
+           ng-if="!resourceForm.roleName.$pristine" ng-messages="resourceForm.roleName.$error"
+           role="alert">
+        <div ng-message="minlength">角色名称长度为4-20字符，中文字符算2个字符</div>
+        <div ng-message="maxlength">角色名称长度为4-20字符，中文字符算2个字符</div>
+        <div ng-message="required">角色名称不能为空</div>
+      </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-xs-4 col-sm-3">资源类型：</label>
+      <div class="formControls col-xs-8 col-sm-9">
+        <select name="" class="form-control" ng-model="resourceEntity.type" ng-click="changeType()">
+          <option value="RESOURCE_COMPONENT">导航组件</option>
+          <option value="RESOURCE_MENU">菜单</option>
+          <option value="RESOURCE_BUTTON">按钮</option>
+        </select>
+      </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-xs-4 col-sm-3">请求方式：</label>
+      <div class="formControls col-xs-8 col-sm-9">
+        <select name="" class="form-control" ng-model="resourceEntity.methods">
+          <option value="GET">GET</option>
+          <option value="POST">POST</option>
+          <option value="PATCH">PATCH</option>
+          <option value="DELETE">DELETE</option>
+        </select>
+      </div>
+    </div>
+    <div class="row cl">
+      <label class="form-label col-xs-4 col-sm-3">路径：</label>
+      <div class="formControls col-xs-8 col-sm-9">
+        <input type="text" class="form-control input-text" value="" placeholder="请输入路径" name=""
+               ng-model="resourceEntity.resource">
+      </div>
+    </div>
+    <div class="row cl hide resourceComponent">
+      <label class="form-label col-xs-4 col-sm-3">父级组件：</label>
+      <div class="formControls col-xs-8 col-sm-9">
+        <div class="selected_address">
+          <select ui-select2="vm.option" ng-model="resourceEntity.parent.id"
+                  style="width: 100%">
+            <option ng-repeat="x in resourceComponents" value="{{x.id}}">{{x.description}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row cl hide resourceMenu">
+      <label class="form-label col-xs-4 col-sm-3">父级菜单：</label>
+      <div class="formControls col-xs-8 col-sm-9">
+        <div class="selected_address">
+          <select ui-select2="vm.option" ng-model="resourceEntity.parent.id"
+                  style="width: 100%">
+            <option ng-repeat="x in resourceMenus" value="{{x.id}}">{{x.description}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row cl">
+      <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+        <button class="btn btn-success radius" id="admin-role-save" name="admin-role-save"
+                ng-disabled="resourceForm.$invalid" ng-click="registerResource()"><i
+            class="icon-ok"></i> 提交
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
