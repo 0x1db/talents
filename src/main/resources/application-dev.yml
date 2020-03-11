@@ -1,0 +1,52 @@
+#开发分支
+spring:
+  profiles:
+    active: dev
+  thymeleaf: classpath:/templates/
+  #数据源
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/manager?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    driver-class-name: com.mysql.jdbc.Driver
+  # rabbitmq
+  rabbitmq:
+    host: 47.92.39.176
+    port: 5672
+    username: admin
+    password: hszl.789
+  data:
+    elasticsearch:
+      cluster-nodes: localhost:9300
+      cluster-name: elasticsearch
+#mybatis-plus
+mybatis-plus:
+  mapper-locations: classpath:mapping/*Mapper.xml
+  type-aliases-package: com.wangyu.talents.domain
+  global-config:
+    db-config:
+      db-type: mysql
+      #数据库
+      id-type: 2
+      #逻辑删除配置
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+      #驼峰下划线转换
+      db-column-underline: true
+    onfiguration:
+    # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # 驼峰下划线转换
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+
+mqtt:
+  url: tcp://47.92.39.176:1888
+  username: admin
+  password: hszl.789
+  producer:
+    clientId: mqttProducer
+    defaultTopic: topic1
+  consumer:
+    clientId: mqttConsumer
+    defaultTopic: topic1,topic2

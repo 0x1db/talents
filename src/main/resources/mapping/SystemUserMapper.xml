@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 指定工作空间，要与接口名相同，源代码没有去看，猜测应该是通过"这里的namespace.下边方法的id"来定位方法的 -->
+<mapper namespace="com.wangyu.talents.mapper.SystemUserMapper">
+
+  <resultMap id="user_result" type="com.wangyu.talents.domain.SystemUser">
+    <result property="id" column="id"/>
+    <result property="userName" column="user_name"/>
+    <result property="password" column="password"/>
+    <result property="realName" column="real_name"/>
+  </resultMap>
+
+  <sql id="user_column">
+    u.id,
+    u.user_name,
+    u.password,
+    u.real_name
+  </sql>
+
+  <sql id="user_query_param">
+    <trim prefix="WHERE" prefixOverrides="AND|OR">
+      <if test="id!=null">
+        AND u.id = #{id}
+      </if>
+      <if test="userName!=null and ''!=userName">
+        AND u.user_name = #{userName}
+      </if>
+      <if test="password!=null">
+        AND u.password = #{password}
+      </if>
+      <if test="realName!=null and ''!=realName">
+        AND u.real_name = #{realName}
+      </if>
+    </trim>
+  </sql>
+
+  <!--根据编号获得用户信息-->
+  <select id="get" resultType="com.wangyu.talents.domain.SystemUser">
+    SELECT
+    <include refid="user_column"/>
+    FROM sys_user u
+    WHERE u.id = #{id}
+  </select>
+</mapper>
