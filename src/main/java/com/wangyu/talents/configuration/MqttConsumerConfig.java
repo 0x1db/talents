@@ -14,7 +14,6 @@ import org.springframework.integration.core.MessageProducer;
 import org.springframework.integration.mqtt.core.DefaultMqttPahoClientFactory;
 import org.springframework.integration.mqtt.core.MqttPahoClientFactory;
 import org.springframework.integration.mqtt.inbound.MqttPahoMessageDrivenChannelAdapter;
-import org.springframework.integration.mqtt.outbound.MqttPahoMessageHandler;
 import org.springframework.integration.mqtt.support.DefaultPahoMessageConverter;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
@@ -25,8 +24,8 @@ import org.springframework.messaging.MessagingException;
  * @author wangyu
  * @date 2020/3/11 22:45
  */
-@Configuration
-@IntegrationComponentScan
+/*@Configuration
+@IntegrationComponentScan*/
 public class MqttConsumerConfig {
   private static final Logger LOGGER = LoggerFactory.getLogger(MqttConsumerConfig.class);
 

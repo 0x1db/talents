@@ -41,12 +41,15 @@ mybatis-plus:
     cache-enabled: false
 
 mqtt:
-  url: tcp://47.92.39.176:1888
+  url: tcp://192.168.132.88:1888
   username: admin
-  password: hszl.789
+  password: 123456
   producer:
     clientId: mqttProducer
     defaultTopic: topic1
   consumer:
     clientId: mqttConsumer
     defaultTopic: topic1,topic2
+
+netty:
+  port: 10000

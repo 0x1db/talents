@@ -22,8 +22,8 @@ import org.springframework.stereotype.Component;
  * @author wangyu
  * @date 2019/11/29 1:14
  */
-@IntegrationComponentScan
-@Configuration
+/*@IntegrationComponentScan
+@Configuration*/
 public class MqttProducerConfig {
 
   private static final byte[] WILL_DATA;

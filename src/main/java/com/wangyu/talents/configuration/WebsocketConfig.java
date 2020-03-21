@@ -1,7 +1,6 @@
 package com.wangyu.talents.configuration;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
 /**
@@ -9,7 +8,7 @@ import org.springframework.web.socket.server.standard.ServerEndpointExporter;
  * @Date 2019/10/20 20:37
  * @Desc websocket 配置
  */
-@Configuration
+//@Configuration
 public class WebsocketConfig {
 
     @Bean

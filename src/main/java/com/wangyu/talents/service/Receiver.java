@@ -17,7 +17,7 @@ public class Receiver {
      * @Param
      * @Return
      */
-    @RabbitListener(queues = "hello-queue")
+//    @RabbitListener(queues = "hello-queue")
     public void process(String msg) {
         System.out.println("receiver: " + msg);
     }
