@@ -11,10 +11,10 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
   # rabbitmq
   rabbitmq:
-    host: 47.92.39.176
+    host: localhost
     port: 5672
     username: admin
-    password: hszl.789
+    password: 123456
   data:
     elasticsearch:
       cluster-nodes: localhost:9300
@@ -41,7 +41,7 @@ mybatis-plus:
     cache-enabled: false
 
 mqtt:
-  url: tcp://192.168.132.88:1888
+  url: tcp://localhost:1888
   username: admin
   password: 123456
   producer:
@@ -49,7 +49,10 @@ mqtt:
     defaultTopic: topic1
   consumer:
     clientId: mqttConsumer
-    defaultTopic: topic1,topic2
+    #mqtt通配符匹配原则：
+    # ‘#’可以匹配多层级，例如face/#/request 可以匹配face/123/request face/123/456/request,同理face/request/# 可以匹配face/request/123,face/request/123/456,
+    # ‘+’ 可以匹配单层级，类似rabbitmq topic * 匹配原则，face/+/request 可以匹配 face/123/request face/request/+ 可以匹配face/request/123 不能匹配face/request
+    defaultTopic: topic1,face/request,face/response,online/response
 
 netty:
   port: 10000

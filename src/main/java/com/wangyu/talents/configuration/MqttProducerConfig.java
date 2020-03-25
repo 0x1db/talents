@@ -1,6 +1,8 @@
 package com.wangyu.talents.configuration;
 
 import com.baomidou.mybatisplus.toolkit.StringUtils;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -22,8 +24,8 @@ import org.springframework.stereotype.Component;
  * @author wangyu
  * @date 2019/11/29 1:14
  */
-/*@IntegrationComponentScan
-@Configuration*/
+@IntegrationComponentScan
+@Configuration
 public class MqttProducerConfig {
 
   private static final byte[] WILL_DATA;
@@ -110,7 +112,6 @@ public class MqttProducerConfig {
   public MessageChannel mqttOutboundChannel() {
     return new DirectChannel();
   }
-
   /**
    * MQTT消息处理器（生产者）
    *
@@ -123,6 +124,7 @@ public class MqttProducerConfig {
         producerClientId,
         mqttClientFactory());
     messageHandler.setAsync(true);
+    messageHandler.setDefaultQos(0);
     messageHandler.setDefaultTopic(producerDefaultTopic);
     return messageHandler;
   }

@@ -1,6 +1,7 @@
 package com.wangyu.talents.web;
 
 import com.wangyu.talents.configuration.MqttProducerConfig.MsgWriter;
+import com.wangyu.talents.service.Sender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,8 +22,16 @@ public class MessageController {
 
   @PostMapping(value = "/sendMsg")
   public String sendMsg(@RequestParam("message") String message) {
-    msgWriter.write(message);
-    msgWriter.write("topic2",message);
+    msgWriter.write("face/response", message);
+    msgWriter.write("face/request", message);
     return "success";
+  }
+
+  @Autowired
+  private Sender sender;
+
+  @PostMapping("/testRabbitMq")
+  public void contextLoads() {
+    this.sender.send("Hello RabbitMQ");
   }
 }

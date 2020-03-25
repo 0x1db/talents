@@ -21,7 +21,7 @@ public class NettyBooter implements ApplicationListener<ContextRefreshedEvent> {
   public void onApplicationEvent(ContextRefreshedEvent event) {
     if (event.getApplicationContext().getParent() == null) {
       try {
-        NettyServer.getInstance().bind(port);
+//        NettyServer.getInstance().bind(port);
       } catch (Exception e) {
         e.printStackTrace();
       }

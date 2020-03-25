@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
  * @Date 2019/9/2 23:47
  * @Desc 消息接收者
  */
+@Component
 public class Receiver {
 
     /**
@@ -17,7 +18,7 @@ public class Receiver {
      * @Param
      * @Return
      */
-//    @RabbitListener(queues = "hello-queue")
+    @RabbitListener(queues = "hello-queue")
     public void process(String msg) {
         System.out.println("receiver: " + msg);
     }

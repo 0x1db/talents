@@ -2,11 +2,12 @@ package com.wangyu.talents.configuration;
 
 import org.springframework.amqp.core.Queue;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * 创建消息队列
  */
-//@Configuration
+@Configuration
 public class QueueConfig {
 
     /**
@@ -14,7 +15,7 @@ public class QueueConfig {
      *
      * @return
      */
-//    @Bean
+    @Bean
     public Queue createQueue() {
         return new Queue("hello-queue");
     }

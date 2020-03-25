@@ -1,6 +1,7 @@
 package com.wangyu.talents.configuration;
 
 import com.baomidou.mybatisplus.toolkit.StringUtils;
+import com.wangyu.talents.service.TopicContext;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,9 +25,10 @@ import org.springframework.messaging.MessagingException;
  * @author wangyu
  * @date 2020/3/11 22:45
  */
-/*@Configuration
-@IntegrationComponentScan*/
+@Configuration
+@IntegrationComponentScan
 public class MqttConsumerConfig {
+
   private static final Logger LOGGER = LoggerFactory.getLogger(MqttConsumerConfig.class);
 
   private static final byte[] WILL_DATA;
@@ -112,7 +114,7 @@ public class MqttConsumerConfig {
             StringUtils.split(consumerDefaultTopic, ","));
     adapter.setCompletionTimeout(5000);
     adapter.setConverter(new DefaultPahoMessageConverter());
-    adapter.setQos(1);
+    adapter.setQos(0);
     // 设置订阅通道
     adapter.setOutputChannel(mqttInboundChannel());
     return adapter;
@@ -141,6 +143,9 @@ public class MqttConsumerConfig {
       public void handleMessage(Message<?> message) throws MessagingException {
         LOGGER.info(message.getHeaders().get("mqtt_receivedTopic").toString());
         LOGGER.error("===================={}============", message.getPayload());
+        TopicContext context = new TopicContext();
+        context.receiveMessage(message.getHeaders().get("mqtt_receivedTopic").toString(),
+            message.getPayload().toString());
       }
     };
   }

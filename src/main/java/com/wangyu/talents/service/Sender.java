@@ -2,12 +2,14 @@ package com.wangyu.talents.service;
 
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * @author wangyu
  * @Date 2019/9/2 23:32
  * @Desc 消息发送者
  */
+@Component
 public class Sender {
 
     @Autowired
