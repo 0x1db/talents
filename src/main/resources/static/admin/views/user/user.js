@@ -35,6 +35,9 @@ angular.module('talents.agent', ['ui.bootstrap'])
     $http({
       method: 'get',
       url: mainUrl + '/v1/user/getPages',
+      headers:{
+        token:'123456'
+      },
       params: $scope.getUserParams
     }).then(function (res) {
       if (res.data.responseCode == '_200') {

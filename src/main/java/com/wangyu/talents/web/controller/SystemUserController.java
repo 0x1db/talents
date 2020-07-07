@@ -5,6 +5,7 @@ import com.wangyu.talents.common.base.BaseController;
 import com.wangyu.talents.common.enums.StatusEnum;
 import com.wangyu.talents.common.enums.UserTypeEnum;
 import com.wangyu.talents.common.exception.ServiceException;
+import com.wangyu.talents.common.filter.ApiAuth;
 import com.wangyu.talents.common.model.ResponseCode;
 import com.wangyu.talents.common.model.ResponseModel;
 import com.wangyu.talents.entity.SystemUserEntity;
@@ -45,6 +46,7 @@ public class SystemUserController extends BaseController {
    * 条件分页查询系统用户信息
    */
   @GetMapping("/getPages")
+  @ApiAuth()
   public ResponseModel getByCondition(String username, String nickname, String type,
       @PageableDefault(sort = {"modifiedDate"}, direction = Direction.DESC)
           Pageable pageable,
